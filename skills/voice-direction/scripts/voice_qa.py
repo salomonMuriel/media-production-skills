@@ -219,8 +219,20 @@ def takes_mode(args: argparse.Namespace) -> int:
     return 1 if failed and not args.report_only else 0
 
 
+LONG_PROBE_WORDS = 3
+
+
+def warn_long_probes(probes: list[str]) -> None:
+    """The floor is the quietest 10% of frames: a probe that is mostly speech puts that percentile inside the voice."""
+    long = [probe for probe in probes if len(probe.split()) > LONG_PROBE_WORDS]
+    if long:
+        print(f"warning: {len(long)} probe(s) longer than {LONG_PROBE_WORDS} words; the floor may be measured inside speech "
+              "and fail clean voices (one or two words with a full stop, e.g. 'ma.' 'mariposa.', leave silence to measure)", file=sys.stderr)
+
+
 def probe_texts(args: argparse.Namespace) -> list[str]:
     if args.probes:
+        warn_long_probes(args.probes)
         return args.probes
     if args.language in DEFAULT_PROBES:
         return DEFAULT_PROBES[args.language]
