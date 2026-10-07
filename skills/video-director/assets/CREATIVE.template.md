@@ -101,7 +101,7 @@ music y/n>. Spine device: <the object or idea that carries through>. Tokens: <ro
 | Hero prop | <object that persists, and the beat where it returns> |
 | Motion | <named verbs (SLAMS, DRAWS, FILLS...) with easing character and duration> |
 | Seam out | <technique + direction + carrier> |
-| Audio cue | <SFX / music event with time> |
+| Audio cue | <an SFX per animated event (sound + time), music events; a silent event says why> |
 | Constraint | <at least one explicit "no ..." for anything that could go generic> |
 | Why | <the beat's job, traced to the message; untraceable means cut> |
 | Truthfulness | <what is real here (capture, real number with source), what is illustration> |
@@ -133,10 +133,10 @@ Generated from `src/data/timeline.ts` after the build; times in film seconds.
 - **Music:** <mood, tempo, energy event and the visual on it, fade/edit plan>.
 - **VO:** <level, pace 140-170 wpm, splits that must land in silence>.
 - **Product sounds:** <diegetic audio, and the pause each one sits in>.
-- **SFX:** <kit (synthesized via sound-design's foley.py or sourced, with licences), key for pitched sounds, the few hits that
-  matter; no meme sounds>.
-- **Mix:** bed ducked 8-12 dB under the voice with a slow release, SFX peak-aligned, master -14 LUFS / -1 dBTP
-  measured on the final file.
+- **SFX:** <kit (synthesized via sound-design's foley.py or sourced, with licences), key for pitched sounds, a sound for
+  every animated event with gains 0.3-0.6 (hero hits up to 1), texture runs marked; no meme sounds>.
+- **Mix:** bed ducked 8-12 dB under the voice with a slow release, SFX peak-aligned and passing `mix.py`'s audibility
+  check, master -14 LUFS / -1 dBTP measured on the final file.
 
 ## 8. Production pipeline
 

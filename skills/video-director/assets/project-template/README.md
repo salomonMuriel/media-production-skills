@@ -35,7 +35,8 @@ Then, in order (the gates are in the skill's SKILL.md):
 6. **VO.** `pnpm script` writes `out/script.json`; record with `$VOICE/vo_record.py`, build with
    `$VOICE/vo_build.py picks.json --out public/audio/vo/<variant> --ts src/data/vo-<variant>.generated.ts`, then
    register the generated module in `GENERATED` in `src/data/vo.ts`.
-7. **Sound.** `pnpm cues` (gap check included), then `uv run $SD/mix.py out/cues-main.json --out public/audio/mix-main.wav`.
+7. **Sound.** `pnpm cues` (gap check included), then `uv run $SD/mix.py out/cues-main.json --out public/audio/mix-main.wav --json`
+   (the report's `sfx_audibility` must pass: every event sound heard over voice and music).
 8. **Review and masters.** `$VD/stills.py`, `$VD/strip.sh`, `$VD/render_masters.sh`, `$VD/qa_video.py`.
 
 ## How timing flows

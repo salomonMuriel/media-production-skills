@@ -86,18 +86,19 @@ seconds; iterating on renders costs minutes, so never skip the plan for a multi-
 | Gate | Phase | Passes when |
 |---|---|---|
 | G0 | Brief | One-sentence message written as a claim; audience; destination (muted feed or sound-on) and formats; length; reference style named ("Linear launch", not "premium modern"); facts file. Vague asks get the five-concept pitch round first |
-| G1 | Script, storyboard, beat map | `scriptwriting`: structure chosen with a reason, hook as three tracks, self-tests and AI-tells scan passed. `sound-design`: music chosen and analysed when music leads. Durations add up; proposal shown as "This video tells [audience] that [message]" plus a frame table |
+| G1 | Script, storyboard, beat map | `scriptwriting`: structure chosen with a reason, hook as three tracks, self-tests and AI-tells scan passed. `sound-design`: music chosen and analysed when music leads. Every animated event in the storyboard has an SFX cue (or a logged reason for silence). Durations add up; proposal shown as "This video tells [audience] that [message]" plus a frame table |
 | G2 | VO locked | `voice-direction`: voice cast and screened for static, takes gated and judged, splits in silence, loudness-matched lines with word timings; captions follow what the audio says; timeline gap check passes |
 | G3 | Style frames | Four stills (or one per beat) with real copy, fonts and colours, reviewed against the brand; generated assets locked through `image-generation` (style suffix, cast sheet). The build dresses this layout; it never redraws it |
-| G4 | Build | Scenes built from the shared core; each builder verifies its own range with stills and strips; types pass |
-| G5 | Sound | `sound-design`: cues exported from the same timeline, offline mix at −14 LUFS / −1 dBTP, envelopes checked at sync points |
+| G4 | Build | Scenes built from the shared core; each builder verifies its own range with stills and strips and returns an SFX cue row for every animated event it built, merged into `sfx.ts`; types pass |
+| G5 | Sound | `sound-design`: cues exported from the same timeline, offline mix at −14 LUFS / −1 dBTP, `mix.py` SFX audibility passes (event cues heard over voice and music), envelopes checked at sync points |
 | G6 | Draft review | Low-res render, automatic scan, contact and phone sheets, critic sub-agents (read-only, default reject) including the anti-AI axis, then the muted restate test |
 | G7 | Master | Spec and loudness checked on the encoded file; poster frame checked; platform exports made |
 | G8 | Hand-off | Paths, a true caption, honesty and licence notes, decision log and storyboard updated to match what was built |
 
 Autonomous runs ("I'll be asleep, just do it") still walk every gate. Replace questions with visible decisions and a
 one-line reason each, record them in the decision log, and deliver a contact sheet with the film. Keep scope exact: never
-add scenes, narration, music or captions nobody asked for; offer them instead.
+add scenes, narration, music or captions nobody asked for; offer them instead. SFX on animated events are part of the
+craft, not an addition: they are always on unless the brief asks for silence.
 
 ## The craft law
 
@@ -125,7 +126,9 @@ add scenes, narration, music or captions nobody asked for; offer them instead.
 10. **One timeline drives everything.** Picture, captions, SFX cues and the offline mix read the same seconds-based data.
     With a voice, the voice is the clock; otherwise the music is.
 11. **Music has a drop; put the key visual on it.** Found by measuring energy, never by trusting an auto beat grid.
-12. **Sound is half the film.** Ducked bed, SFX on their transients, loudness measured on the final file (`sound-design`).
+12. **Sound is half the film.** Every animated event gets a sound on its transient, and the mix proves it is heard
+    (`mix.py` audibility check); ducked bed; loudness measured on the final file (`sound-design`). A cue sheet full of
+    sounds 25 dB under the voice is a silent film.
 13. **The judge is never the builder.** Critics are separate read-only sub-agents that reject by default; a fresh agent
     must restate the message from muted frames alone.
 14. **Trust measurements over opinions.** You can see PNGs but cannot hear, and AI video judges sample about 1 fps and

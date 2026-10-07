@@ -53,12 +53,16 @@ class Sfx(Strict):
     kind: str | None = Field(default=None, description="foley.py kind (synthesized).")
     file: str | None = None
     at: float = Field(description="Film time where the transient (peak) lands, or the file start when align='start'.")
-    gain: float = Field(default=1.0, ge=0, description="Linear gain on top of --sfx-peak-db (0.04-0.3 typical for UI foley).")
+    gain: float = Field(default=1.0, ge=0, description="Linear gain on top of --sfx-peak-db (0.3-0.6 for most events, up to 1 for hero hits).")
     gain_db: float = 0.0
     note: float | None = Field(default=None, description="Semitones above the key's tonic (pitched kinds).")
     length: float | None = Field(default=None, gt=0, description="Seconds for whoosh/swell/riser/shimmer/reverse-swoosh.")
     variant: int = Field(default=0, ge=0, description="Different noise for repeated sounds.")
     align: Literal["peak", "start"] = "peak"
+    role: Literal["event", "texture"] = Field(
+        default="event",
+        description="'texture' for runs meant to sit under the bed (tick runs, typing keys); events must be heard.",
+    )
 
     @model_validator(mode="after")
     def one_source(self) -> "Sfx":

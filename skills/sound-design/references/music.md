@@ -22,7 +22,8 @@ Contents
   lifts, stops and vocal shouts that would fight the voice.
 - Sources: Pixabay (licence forbids standalone redistribution: don't commit it; keep the URL in the README and gitignore
   the folder), Mixkit, ElevenLabs Music, licensed libraries. Keep a licence ledger.
-- Premium films: a handful of soft hits; remove anything loud or out of place. Never ship silent unless asked.
+- Premium films: soft timbres, not missing sounds; remove anything out of place, keep every animated event covered
+  (`sfx.md`). Never ship silent unless asked.
 - In a remake, never reuse the reference's music or voice.
 
 ## Music analysis, editing and beat sync

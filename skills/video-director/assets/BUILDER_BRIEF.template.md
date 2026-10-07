@@ -43,6 +43,9 @@ Fill every <...> before sending. One builder owns one contiguous range of scenes
   bottom 18%; headline >= 84 px and supporting text >= 44 px at 1080 width; nothing overlaps the captions band
   when captions are visible.
 - If you match a reference: position and size error <= 1-2% of frame, cut frames 0 off.
+- Sound: every animated event you build (entrance, landing, press, cascade step, draw, counter, seam) has an SFX cue
+  row in your report, timed by name like the animation: `{kind|file, at: <timeline expression>, gain, note?, role?}`.
+  Gains 0.3 to 0.6, hero hits up to 1; tick runs and typing `role: "texture"`. An event you leave silent gets a reason.
 - `npx tsc --noEmit` passes. No console errors in a still render.
 
 ## Honesty rules
@@ -71,4 +74,5 @@ Fill every <...> before sending. One builder owns one contiguous range of scenes
 | Scene | Frames | Status (DONE / ROUGH / BLOCKED) | Verified with (paths of stills/strips viewed) | Residual issues | Requests to orchestrator |
 |---|---|---|---|---|---|
 
-Plus: measurements you used, any deviation from the storyboard and why, and exact files written.
+Plus: SFX cue rows for every animated event (the orchestrator merges them into `src/data/sfx.ts`), measurements you
+used, any deviation from the storyboard and why, and exact files written.

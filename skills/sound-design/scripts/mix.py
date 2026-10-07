@@ -17,7 +17,7 @@ from scipy.signal import butter, lfilter
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import foley  # noqa: E402
-from lib_audio import dsp, limiter, media  # noqa: E402
+from lib_audio import audibility, dsp, limiter, media  # noqa: E402
 from lib_audio.cues_model import Clip, Cues, Music  # noqa: E402
 
 RATE = foley.RATE
@@ -27,7 +27,7 @@ SCHEMA_SUMMARY = """cues.json (full spec: scripts/cues.schema.md; keys camelCase
   music      {file, segments:[{sourceStart,sourceEnd},...] | edit:{a:{..},b:{..}}, at, gainDb, fadeIn, tempo, beats}
   vo         [{file, at, gainDb, sourceStart, sourceEnd, align:start|peak, id}]   normalized as one stem to --vo-lufs
   product    [{...same as vo}]  product/diegetic voice or sound (alias: cards, diegetic), stem to --product-lufs
-  sfx        [{kind|file, at, gain, gainDb, note, length, variant, align:peak|start}]  peak lands on `at`
+  sfx        [{kind|file, at, gain, gainDb, note, length, variant, align:peak|start, role:event|texture}]  peak lands on `at`
 Relative files resolve against --root, then the cwd, then the cues file's folder."""
 
 
@@ -48,6 +48,8 @@ def parse_arguments() -> argparse.Namespace:
     add("--product-lufs", type=float, default=-17.0)
     add("--music-lufs", type=float, default=-19.0, help="bed level before ducking (what plays in the gaps)")
     add("--sfx-peak-db", type=float, default=-10.5, help="each SFX peak-normalized to this, times its cue gain")
+    add("--sfx-median-db", type=float, default=-12.0, help="fail when event SFX sit, at the median, further than this under voice+music")
+    add("--sfx-cue-db", type=float, default=-20.0, help="warn for each event SFX further than this under voice+music")
     add("--duck-db", type=float, default=6.0, help="bed reduction under speech, whole band")
     add("--duck-high-db", type=float, default=3.0, help="extra reduction above --duck-split-hz (clears the speech band)")
     add("--duck-split-hz", type=float, default=3500.0)
@@ -253,6 +255,7 @@ def main() -> None:
     applied = media.loudnorm_two_pass(arguments.stems / "mix-raw.wav", arguments.out, target, RATE, f"pcm_s{arguments.bits}le")
     final = media.measure(arguments.out, target)
     under_speech = amount > 0.5
+    heard = audibility.assess(audibility.cue_levels(cues.sfx, sfx, vo + product + ducked, RATE), arguments.sfx_median_db, arguments.sfx_cue_db)
     duck_depth = dsp.rms_db(ducked[under_speech]) - dsp.rms_db(music[under_speech]) if under_speech.any() and np.any(music) else None
     report = {
         "out": str(arguments.out),
@@ -267,9 +270,10 @@ def main() -> None:
         "average_duck_under_speech_db": round(duck_depth, 1) if duck_depth is not None else None,
         "limiter_max_reduction_db": round(limited_db, 2),
         "key": key,
+        "sfx_audibility": heard.model_dump(),
         "warnings": warnings,
     }
-    passed = abs(report["integrated_lufs"] - arguments.lufs) <= 0.5 and report["true_peak_dbtp"] <= arguments.true_peak + 0.05
+    loudness_passed = abs(report["integrated_lufs"] - arguments.lufs) <= 0.5 and report["true_peak_dbtp"] <= arguments.true_peak + 0.05
     for path in written + [arguments.out]:
         print(path)
     print(f"mix {report['duration']}s: {report['integrated_lufs']} LUFS, TP {report['true_peak_dbtp']} dBTP, LRA {report['lra']} ({report['normalization']})")
@@ -277,14 +281,19 @@ def main() -> None:
     print(f"average bed duck under speech: {report['average_duck_under_speech_db']} dB; limiter max reduction {report['limiter_max_reduction_db']} dB")
     for warning in warnings:
         print(f"warning: {warning}")
+    for line in audibility.describe(heard, arguments.sfx_cue_db):
+        print(line)
     if report["normalization"] == "dynamic":
         print("warning: loudnorm fell back to dynamic mode (it compresses); keep the limiter on, or lower --sfx-peak-db and hot cues")
     if arguments.json:
         report_path = arguments.out.with_suffix(".report.json")
         report_path.write_text(json.dumps(report, indent=2) + "\n")
         print(report_path)
-    print("PASS" if passed else f"FAIL: target {arguments.lufs} LUFS / {arguments.true_peak} dBTP")
-    sys.exit(0 if passed else 2)
+    failures = [] if loudness_passed else [f"FAIL: target {arguments.lufs} LUFS / {arguments.true_peak} dBTP"]
+    if not heard.passed:
+        failures.append(f"FAIL: event SFX median {heard.event_median_db} dB under voice+music (floor {arguments.sfx_median_db}); raise cue gains")
+    print("\n".join(failures) or "PASS")
+    sys.exit(2 if failures else 0)
 
 
 if __name__ == "__main__":

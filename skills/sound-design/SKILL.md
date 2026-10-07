@@ -30,8 +30,11 @@ by a sub-agent. If the context is summarised mid-task, read the set again before
    off). Fit the grid yourself and land the key moment on the drop.
 3. **Cut music on bars** with a short equal-power crossfade, and give every splice a blind test against an untouched control.
    The song's own ending ("button") beats a fade or a cut into a sparse outro.
-4. **Place SFX by the transient peak**, not the file start; subtract the render's audio offset (AAC priming, ~1.3 frames at
-   30 fps). Choose sounds by genre, few and soft for premium work; never meme sounds or game-pack bloops in brand work.
+4. **Every animated event gets a sound**, or a logged reason for silence, and the sound must be heard: event cues sit
+   at gains of 0.3 to 0.6 (hero hits up to 1), and `mix.py` fails a mix whose events sit, at the median, more than
+   12 dB under voice plus music. Place SFX by the transient peak, not the file start; subtract the render's audio
+   offset (AAC priming, ~1.3 frames at 30 fps). Choose sounds by genre; tuned foley in the song's key is the
+   signature; never meme sounds or stock game-pack samples in brand work.
 5. **Duck the bed 8 to 15 dB under the voice** with a slow release and, where possible, a dip at 1 to 3 kHz; keep the
    sidechain voice-only.
 6. **Mix offline for finals**: one cue list, stems, two-pass loudnorm. Measure the encoded file, not just the WAV.
@@ -45,7 +48,8 @@ by a sub-agent. If the context is summarised mid-task, read the set again before
 2. `music_analyze.py` on the clean track: tempo, bars, key, energy, drop candidates; refine with `--around`.
 3. Edit with `music_splice.py` (rank, render), then `blind` excerpts for `media_judge.py blind-splice`.
 4. Generate missing sounds with `foley.py --key <song key>`.
-5. Write `cues.json` (by hand, or exported from a video timeline) and run `mix.py`; check sync points with
+5. Write `cues.json` (by hand, or exported from a video timeline) with one cue per animated event (tick runs and typing
+   marked `"role": "texture"`) and run `mix.py`; fix every SFX audibility failure and warning; check sync points with
    `audio_qa.py --envelope`.
 6. Master check on the final file: `audio_qa.py final.mp4`.
 
@@ -77,7 +81,9 @@ audio_qa.py <file> [file ...] [--target-lufs -14] [--max-true-peak -1] [--envelo
   adds +3 dB there).
 - `mix.py`: schema in `scripts/cues.schema.md` (`--print-schema` for JSON Schema). Stems are written before mastering; a
   look-ahead true-peak limiter runs before loudnorm so ffmpeg stays in linear mode (the report says which mode ran). Exits 2
-  when the master misses −14 ±0.5 LU or exceeds −1 dBTP.
+  when the master misses −14 ±0.5 LU, exceeds −1 dBTP, or its event SFX sit at a median more than 12 dB under voice
+  plus music (`--sfx-median-db`; per-cue warnings below −20 dB, `--sfx-cue-db`). Calibrated on the Repitis film (−8 dB)
+  against one that sounded flat (−25 dB).
 - `audio_qa.py`: allows 0.05 dB of true-peak measurement slack (a mix normalised to exactly −1 dBTP measures −0.99).
 - Judge models (music fit, chunk descriptions, blind splice tests):
   `~/.claude/skills/video-director/scripts/media_judge.py` (OpenRouter).
@@ -86,6 +92,7 @@ audio_qa.py <file> [file ...] [--target-lufs -14] [--max-true-peak -1] [--envelo
 
 - [ ] The voice is the clock (if any); the music drop is on the key moment; cuts on beats within 3 to 4 frames.
 - [ ] Bed ducked under every voice, slow release, open at t=0.
+- [ ] Every animated event has a cue or a logged silence; `mix.py` SFX audibility passes with no unexplained warnings.
 - [ ] SFX peaks on contact frames, offset compensated; no meme sounds; foley in key.
 - [ ] Every music splice passed a blind test with a control.
 - [ ] −14 LUFS (or the platform target) and ≤ −1 dBTP measured on the final encoded file.

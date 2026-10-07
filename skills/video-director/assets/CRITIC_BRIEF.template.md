@@ -11,7 +11,8 @@ that a viewer would notice.
 - Draft render: <path.mp4> (<fps> fps, <duration> s, <formats>).
 - Review sheets (already rendered; render more only into `out/critic-<AXIS>/`):
   contact sheet <path>, phone sheet at 360 px <path>, strips <paths>, poster check <path>.
-- Audio numbers: <audio_qa report path> (LUFS, true peak, envelopes at sync points). You cannot hear: judge sound
+- Audio numbers: <audio_qa report path> (LUFS, true peak, envelopes at sync points) and the mix report
+  <public/audio/mix-<variant>.report.json> (`sfx_audibility`: event median and quiet events). You cannot hear: judge sound
   only from these numbers and the cue sheet `out/cues-<variant>.json`.
 - Tools you may run (read-only on the project): `~/.claude/skills/video-director/scripts/sheets.sh`, `strip.sh`,
   `stills.py`, `qa_video.py` (video-director) and `audio_qa.py` (sound-design) (see `--help`). Never edit project files.
@@ -26,7 +27,7 @@ that a viewer would notice.
 | Variety | Something new every 2-4 s; framing varies; no slideshow (every beat a fresh card) and no screensaver (motion that says nothing) |
 | Composition | One focal point per frame, clear hierarchy, safe margins, formats re-laid out (not cropped), poster works at ~300 px with a centre play button |
 | Brand and data accuracy | Tokens, type and logo match the brand source; every number matches facts.md; no invented UI, features, testimonials or claims; copy rules respected |
-| Sound sync | Cue times sit on their visual events (within 3 frames); key visual on the music's energy event; VO intelligible (bed ducked 8-15 dB); -14 LUFS / -1 dBTP on the final file |
+| Sound sync | Every animated event in the storyboard has a cue in the cue sheet (or a logged silence); cue times sit on their visual events (within 3 frames); event SFX audible (`sfx_audibility` passes, quiet events explained); key visual on the music's energy event; VO intelligible (bed ducked 8-15 dB); -14 LUFS / -1 dBTP on the final file |
 | Made by a person with taste | Zero hits from the anti-AI pass (`references/qa.md` §7): no explanatory text the picture already says, no labels narrating visuals, no summary or "How it works" cards, no contrast reveals or negation lists, no AI vocabulary or em dashes, no lazy visual defaults, no wall-to-wall stock music; the swap test fails for a competitor |
 
 ## Method

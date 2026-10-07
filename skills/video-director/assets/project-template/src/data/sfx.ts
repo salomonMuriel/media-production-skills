@@ -25,11 +25,14 @@ export type SfxCue = {
   // Pitch in semitones above the kind's base note (tune pitched kinds to the song's key).
   note?: number
   file?: string
+  // "texture" for runs meant to sit under the bed (tick runs, typing); events must be heard over voice and music.
+  role?: "event" | "texture"
 }
 
 const SEAM_GAIN = 0.4
 
-// Every sound is placed with the same timeline helpers the scenes animate with. Premium means few, soft hits.
+// Every animated event gets a sound, placed with the same timeline helpers the scenes animate with. Event gains 0.3-0.6,
+// hero hits up to 1: mix.py fails when events sit too far under voice and music.
 export function sfxCues(t: Timeline): SfxCue[] {
   const cues: SfxCue[] = []
   const add = (kind: SfxKind, at: number, gain: number, note?: number) => cues.push({ kind, at, gain, note })

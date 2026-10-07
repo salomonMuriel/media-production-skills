@@ -107,6 +107,14 @@ with 2 to 4 options and a default.
 - Extract the truth first. Product: audience, pain or desire, promise (one-line thesis), product role, proof, CTA.
   Explainer: audience, gap and stakes, thesis, spine (3 to 6 ideas), evidence, landing.
 - One job per beat; never "another benefit".
+- **The differentiating moment gets the most screen time.** Find the one beat only this product can deliver; the rest
+  of the film sets it up. Never spread the runtime evenly across features.
+- **Launch and promo films show the product within 3 s.** Lead with the viewer's problem, but the product is on screen
+  by 3 s.
+- **Ground the problem in something viewers recognise without explanation.** If the pain needs a sentence to be
+  understood, the hook is too abstract.
+- **End card: one headline and the CTA**, using the landing page's real tagline, not a punchier invention. Add a
+  supporting line only when the CTA needs explaining.
 - **Spine device**: name the one thing that threads every beat (a persistent window, a hero object, one background
   that leads every transition). A **hero prop** persists and returns; a callback beat states which earlier beat it
   answers.
@@ -133,8 +141,8 @@ a chart") and `keyMessage` (one sentence the viewer keeps).
 
 **Visual beat shapes** that carry well: a widget that morphs into the whole product; demo | value line | demo sandwich;
 cause→effect couplets ("drag the value: the button follows"); a close-up mystery that zooms out on the landing line;
-milestones marching across time; tools piling in until they bury the viewer; a count-up cold open; a calm end card of 2 to
-3 near-still lines. Escalation and ticker shapes ("Hard. Insanely hard.", "A doc? A wiki? No: all of them.") are AI tells:
+milestones marching across time; tools piling in until they bury the viewer; a count-up cold open; a calm, near-still end card
+(one headline and the CTA). Escalation and ticker shapes ("Hard. Insanely hard.", "A doc? A wiki? No: all of them.") are AI tells:
 at most one per film, on purpose (scriptwriting skill, `references/craft.md`).
 
 ## 6. Script and narration
@@ -200,7 +208,7 @@ card; screensaver: motion that says nothing); held-frame allocation; the directi
 | Hero prop | object that persists, and the beat where it returns |
 | Motion | named moves from a small vocabulary |
 | Seam out | named transition + direction |
-| Audio cue | SFX or music cue with time |
+| Audio cue | an SFX for every animated event (sound + time) and any music cue; an event left silent says why |
 | Constraint | at least one explicit "no …" where the beat could go generic |
 | Why | the beat's job, traced to the message |
 | Truthfulness | where the film depicts something real, what is real |

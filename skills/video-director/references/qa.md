@@ -65,7 +65,7 @@ accelerate; the next shot not already moving in the exit's direction; idle wobbl
 - [ ] Every still image has a treatment; fast snaps have motion blur, read text has none
 - [ ] One hero colour per frame; brand font everywhere; px gaps around big type
 - [ ] At least three deliberate holds; no frozen frame mid-film
-- [ ] SFX on major hits; music drop on the key visual
+- [ ] Every animated event has an SFX cue or a logged silence; `mix.py` SFX audibility passes; music drop on the key visual
 - [ ] Text inside safe zones in every format
 - [ ] Frames extracted, inspected, fixed and re-inspected
 

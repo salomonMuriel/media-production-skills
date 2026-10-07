@@ -113,6 +113,9 @@ export const springs = {
   press ended. Press faster than release. This is the one place overshoot belongs in serious films: a force caused it.
   The button must be ≥ 3 to 5% of the frame or the press is invisible.
 - Floods (a circle wipe from an object) must clear the farthest corner (distance to the four corners × 1.05) in 9 to 11 f.
+- **Before/after**: stagger, never simultaneous. Land the "before" alone for 0.7 to 1 s, then crash the "after" in with
+  a caused impact (a heavier spring that may overshoot once, the accent colour washing in over 3 to 6 f, never a
+  one-frame flash) and an impact SFX on the landing frame. Design the film around this shot when the product has one.
 - Logo reveal from a line: scaleY 0.014 → 1 like an eye opening. Never crossfade a drawn version into the PNG (grey
   ghost).
 

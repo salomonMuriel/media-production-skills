@@ -51,12 +51,13 @@ error (a typo like `"gian"` would otherwise silently drop a level). All times ar
 | `kind` | string | none | A `foley.py` kind: pop, blip, thump, slap, stamp, whoosh, swell, tear, tick, key, flip, pluck, chime, riser, bass-hit, shimmer, reverse-swoosh. |
 | `file` | string | none | Or an SFX file. Exactly one of `kind` / `file`. |
 | `at` | number | required | Film time where the TRANSIENT lands (the file's measured peak, argmax of abs). Risers and reverse swooshes peak at their end, so they end on `at`: put them on the cut. |
-| `gain` | number >= 0 | `1` | Linear gain on top of `--sfx-peak-db` (default -10.5 dBFS peak). 0.04 to 0.3 for soft UI foley, up to 1 for hero hits. |
+| `gain` | number >= 0 | `1` | Linear gain on top of `--sfx-peak-db` (default -10.5 dBFS peak). 0.3 to 0.6 for most events, 0.8 to 1 for hero hits, 0.15 to 0.3 for texture runs. |
 | `gainDb` | number | `0` | Extra gain in dB. |
 | `note` | number | `0` | Semitones above the key's tonic, for pitched kinds (pop, blip, pluck, chime, riser, bass-hit, shimmer). |
 | `length` | number | kind default | Seconds, for whoosh, swell, riser, shimmer, reverse-swoosh. |
 | `variant` | integer | `0` | Different (still deterministic) noise for repeated sounds, e.g. a run of ticks. |
 | `align` | `"peak"` or `"start"` | `"peak"` | `"start"` places the file start at `at` instead. |
+| `role` | `"event"` or `"texture"` | `"event"` | `"texture"` for runs meant to sit under the bed (tick runs, typing keys). Events are checked for audibility; textures are not. |
 
 ## Paths
 
@@ -105,3 +106,6 @@ current directory, then the folder of the cues file. Absolute paths are used as 
 6. Writes the master (`--out`, default `out/mix.wav`), stems `vo/product/sfx/music.wav` + `mix-raw.wav` (`--stems`,
    pre-master, float), a report (stdout; `--json` adds `<out>.report.json`), and exits 2 if the master misses
    the target by more than 0.5 LU or exceeds the true-peak ceiling.
+7. SFX audibility, on the stems: each cue's RMS from 30 ms before to 120 ms after `at`, against voice + product + ducked
+   music over the same window. Exits 2 when the median over event cues is below `--sfx-median-db` (-12); warns for
+   each event cue below `--sfx-cue-db` (-20). The report's `sfx_audibility` lists the quiet events.

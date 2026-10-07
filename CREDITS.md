@@ -7,7 +7,8 @@ were taken and the text was written from scratch. No source text was copied verb
 ## Shipped work
 
 - **Repitis** (children's Spanish reading app): the launch film (73 s, narrated, two voices, 16:9 and 9:16) and the
-  1,372-take card audio library. Source of the measured voice, static, music, QA and delivery rules.
+  1,372-take card audio library. Source of the measured voice, static, music, QA and delivery rules, and the
+  calibration for SFX density, gains and the mixer's audibility check (its stems re-measured in October 2026).
 
 ## Skills and repositories consulted
 
@@ -15,6 +16,7 @@ were taken and the text was written from scratch. No source text was copied verb
 |---|---|---|
 | [remotion-dev/skills](https://github.com/remotion-dev/skills) | see repo | The Remotion API layer these skills load and defer to (not bundled) |
 | [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | Apache-2.0 | Motion doctrine, seams and velocity-matched cuts, captions model, creative direction, audio carving |
+| [EveryInc/product-launch-video](https://github.com/EveryInc/product-launch-video) | MIT | The differentiating moment gets the most screen time, product on screen within 3 s, staggered before/after, one-headline end card |
 | [howseen-ai/claude-motion-design](https://github.com/howseen-ai/claude-motion-design) | MIT, © 2026 Howseen AI (Raphaël Aubry) | Critic loop, pop and one-frame-flash detection maths (adapted in `qa_video.py`), spring presets, music cue rules |
 | [haidrrrry/claude-remotion-skill](https://github.com/haidrrrry/claude-remotion-skill) | MIT | Remotion craft checklist, verification loop, synthesized SFX idea |
 | [digitalsamba/claude-code-video-toolkit](https://github.com/digitalsamba/claude-code-video-toolkit) | MIT | VO pacing tiers, TTS drift, Playwright recording, platform exports |

@@ -46,7 +46,8 @@ For finals with voice, music and SFX, mix offline and play one WAV in Remotion:
    scenes animate with, so picture and sound cannot drift, and it refuses to write when two VO lines overlap or sit closer
    than 0.15 s. Schema: `scripts/cues.schema.md`; paths are relative to `public/`; an SFX `at` is the film second its
    transient peak should land on.
-2. `scripts/mix.py out/cues.json --out public/audio/mix-main.wav` → the mix, `out/stems/*.wav` and a LUFS report
+2. `scripts/mix.py out/cues.json --out public/audio/mix-main.wav --json` → the mix, `out/stems/*.wav` and a report
+   (LUFS, plus SFX audibility: it fails when event sounds sit too far under voice and music)
    (`--check` validates the cues and resolves files without mixing). Defaults: VO −16 LUFS, bed −19 LUFS in the gaps,
    ducking as above, SFX peak-aligned, two-pass loudnorm to −14 LUFS / −1 dBTP.
 3. In the video-director project template, `Main.tsx` plays `public/audio/mix-<variant>.wav` when it exists; otherwise it falls back to draft
