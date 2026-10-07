@@ -186,8 +186,10 @@ shipping the Repitis launch film (a 73 s narrated promo for a children's reading
   it on one sheet, then fan out. Up to about six short scenes, building inline is faster; beyond that, give each builder two
   or three scenes. Each builder owns its scene files only and gets `BUILDER_BRIEF.template.md` filled in.
 - Voice, images and sound can each be their own agent from the start, running their skill in parallel with picture.
-- Critics get `CRITIC_BRIEF.template.md`: split by axis, fix only shots scored 7 or below, never touch shots at 9 or above,
-  repeat until every axis is 8 or more.
+- Critics get `CRITIC_BRIEF.template.md`: split by axis, list every issue as BLOCKER or POLISH, fix everything in one
+  pass (only shots scored 7 or below; never shots at 9 or above). At most three rounds: a full review, then
+  verification of the fixes, then a last pass only for remaining blockers. Leftovers and items that fail twice go to
+  the user.
 - One heavy render at a time on the machine; parallel renders just thrash.
 
 ## Hand-off

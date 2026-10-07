@@ -76,8 +76,20 @@ accelerate; the next shot not already moving in the exit's direction; idle wobbl
 - Split by axis: motion, design and image, sound, story, muted readability, UI fidelity and translations, brand and copy
   rules. Each defect comes with frame numbers, severity and a measurable fix.
 - Score 1 to 10 per axis: hook in the first 2 s, readability at 360 px, motion quality, variety, composition, brand and
-  data accuracy, sound sync. Write the 3 worst problems with timestamps, fix them, re-render only the affected range,
-  re-score. Repeat until every axis is 8 or above.
+  data accuracy, sound sync, taste. Tag every issue **BLOCKER** (a viewer would notice: a wrong fact or claim,
+  unreadable text, broken or popping motion, sync off by more than 3 frames, inaudible SFX, a brand violation, a failed
+  restate) or **POLISH** (everything else).
+- **At most three rounds**, each one doing more than the last could:
+  1. **Full review.** Every axis lists every issue it finds, not the worst three. Fix every blocker and every cheap,
+     safe polish item in one pass; re-render only the affected ranges.
+  2. **Verification.** The critics of the axes that failed, or whose shots changed, get the round 1 findings and mark
+     each item FIXED, NOT FIXED or REGRESSED. They may add new blockers (regressions, or defects a viewer would notice),
+     never new polish. Axes that passed with unchanged shots are not re-run.
+  3. **Only if blockers remain**, on those items alone.
+  Then stop. What is left goes to the user at hand-off, one line each with a recommendation. An item that fails twice
+  is a design decision, not a fix: it goes to the user (or, in autonomous runs, the decision log), never to round 4.
+- **Pass**: no open blocker and every axis at 8 or above. An axis held at 7 by a constraint the brief locked (a talking
+  head the speaker's own words must open on) passes with that reason logged; it is not a reason for another round.
 - Fix only shots scored 7 or below; don't touch shots at 9 or above.
 - With parallel builders, write one FIXES file per builder so fixes run in parallel.
 - A new version replaces the previous one only if side-by-side judging finds it better. Keep a version log.
