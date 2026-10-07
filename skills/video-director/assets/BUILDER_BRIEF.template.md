@@ -6,8 +6,9 @@ Fill every <...> before sending. One builder owns one contiguous range of scenes
 
 - Workdir (absolute): <ABSOLUTE_PATH>/video. Run every command from here.
 - Read first: `CREATIVE.md` (sections 1, 2, 5 for your beats, 6), `README.md`, `src/data/timeline.ts`,
-  `src/lib/{motion,seam,format}.ts`, `src/theme/tokens.ts`, and the official Remotion skill files you need
-  (`~/.claude/skills/remotion-markup/SKILL.md`, then e.g. `timing.md`, `images.md`, `embedding-videos.md`).
+  `src/lib/{motion,seam,format}.ts`, `src/theme/tokens.ts`, and every official Remotion skill file in full, not a
+  selection: load `remotion-best-practices`, list every `.md` under its base directory and read each one to its last
+  line (video-director `SKILL.md`, Step 0).
 - Your scenes: <scene ids>, film time <start>-<end> s (frames <a>-<b> at <fps> fps).
 - Style frames approved at G3: <paths>. Build dresses this layout; it never redraws it.
 

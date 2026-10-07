@@ -137,7 +137,8 @@ reconcile it with what is on disk before continuing. Long-running jobs print pro
 
 ## 8. Official Remotion file map
 
-Skills live in `~/.claude/skills/`. Load `remotion-best-practices` first; open these when the topic comes up.
+Skills live in `~/.claude/skills/`. Every file below (and every other Markdown file in the Remotion skills) is read in
+full at Step 0 of `SKILL.md`, whatever the task. This table is a map for finding a topic again, not a reading list.
 
 | Topic | File |
 |---|---|

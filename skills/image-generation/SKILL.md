@@ -8,7 +8,15 @@ description: AI image generation for any product with OpenAI GPT Image (default)
 Images made for a product are props with a job (an app card, a share image, a plate the camera moves across), not posters.
 Model ids churn monthly: check `references/models.md` dates and the vendor changelog before a new project.
 
-| Need | Read |
+## Step 0: read every file before the first action
+
+This skill is loaded whole, never in part. Read this `SKILL.md` to the end, then every file in the table below, each to
+its last line: no `offset`/`limit`, no `head`, `grep` or skimming, no "only the sections this task needs". If a read comes
+back truncated, keep reading until the file ends. The task decides what you apply, never what you read; the table says
+where each topic lives, not which files to skip. This holds when the skill is called on its own, from `video-director`, or
+by a sub-agent. If the context is summarised mid-task, read the set again before the next action that depends on it.
+
+| Topic | File |
 |---|---|
 | Prompt anatomy, the style suffix, edit prompts, negatives per model, style recipes by format | `references/prompting.md` |
 | OpenAI API facts (models, sizes, quality, background, masks, cost), the model chooser | `references/models.md` |
@@ -16,6 +24,7 @@ Model ids churn monthly: check `references/models.md` dates and the vendor chang
 | Sizes and overscan, light continuity, layers, cutouts, sharpness, image-to-video keyframes | `references/motion-assets.md` |
 | Reviewing your own images, failure table, brief-to-handoff workflow, cost control | `references/review.md` |
 | Ownership, indemnity, people, disclosure, provenance | `references/legal.md` |
+| Script flags, the prompts-file schema, other providers' keys | `scripts/README.md` |
 
 ## Ten rules
 

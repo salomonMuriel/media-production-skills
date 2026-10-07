@@ -8,11 +8,20 @@ description: Music, sound effects, mixing and loudness for video, podcasts, apps
 Sound is half of perceived quality. You can't hear, so every decision rests on measurements (LUFS, true peak, envelopes,
 onsets) plus an audio-capable judge model or the user's ears for the important calls.
 
-| Need | Read |
+## Step 0: read every file before the first action
+
+This skill is loaded whole, never in part. Read this `SKILL.md` to the end, then every file in the table below, each to
+its last line: no `offset`/`limit`, no `head`, `grep` or skimming, no "only the sections this task needs". If a read comes
+back truncated, keep reading until the file ends. The task decides what you apply, never what you read; the table says
+where each topic lives, not which files to skip. This holds when the skill is called on its own, from `video-director`, or
+by a sub-agent. If the context is summarised mid-task, read the set again before the next action that depends on it.
+
+| Topic | File |
 |---|---|
 | Choosing music, analysis, the drop, beat grids, edits, blind splice tests, AAC offset | `references/music.md` |
 | SFX placement by transient, genre-appropriate sound, density, foley, Remotion volume gotchas | `references/sfx.md` |
 | Ducking, the offline mix from `cues.json`, loudness and mastering, diagnosing a voice | `references/mix.md` |
+| The `cues.json` schema for `mix.py` | `scripts/cues.schema.md` |
 
 ## Principles
 

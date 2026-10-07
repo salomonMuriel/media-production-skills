@@ -20,15 +20,45 @@ called at the gates below; the official Remotion skills own the API.
 When this skill and an official Remotion skill disagree on an API fact, the official skill wins; on taste or process,
 this skill wins (see "Where we deviate"). Product docs (brand, voice, copy rules) override every skill's defaults.
 
-## Step 0: load what the step needs
+## Step 0: read everything before the first action
 
-- Before writing or editing any Remotion code, invoke the Skill tool with `remotion-best-practices`; it routes to the
-  right official guide. Without the Skill tool, read `~/.claude/skills/remotion-best-practices/SKILL.md` and follow its links.
-  Open the official files the references point to instead of recalling APIs from memory. Check the project's Remotion
-  version against the skill's `version:` line; use `remotion-upgrade` or adapt if an API is missing.
-- At each gate, invoke the specialist skill named in the table above (or read its `SKILL.md` in the sibling folder
-  next to this skill). Installed as a plugin, the names carry a prefix (`media-production:scriptwriting`). Don't re-derive
-  their rules here.
+Skills here are loaded whole, never in part. "Read" means every file, each to its last line: no `offset`/`limit`, no
+`head`, `grep` or skimming, no "only the sections this task needs". If a read comes back truncated, keep reading until
+the file ends. The task decides what you apply, never what you read. Sub-agents that load a skill follow the same rule.
+If the context is summarised mid-project, read the set again before the next action that depends on it.
+
+1. **This skill.** Read this `SKILL.md` to the end, then every Markdown file in this skill's folder:
+   - `references/direction.md`: brief, pitch round, story doctrine, beat metadata, pacing, music-driven pacing,
+     storyboard formats, per-beat direction, honesty.
+   - `references/design.md`: layout for video, type, colour, brand fidelity, real product screens, stills, data in
+     motion, formats.
+   - `references/motion.md`: easing, springs, entrances and exits, stagger, kinetic type, seams and transitions,
+     choreography, motion blur, camera, motion tokens by brand energy.
+   - `references/footage.md`: ingest, transcription, silence and filler cuts, captions, overlay cards, b-roll,
+     punch-ins, screen demos, zooms and cursors, long to short, safe zones.
+   - `references/pipeline.md`: project structure, the timeline as single source of truth, parallel builders, assets
+     and licences, the official Remotion file map.
+   - `references/qa.md`: the verification loop, review sheets, automatic scans, critics, the restate test, limits of
+     AI judges, the anti-AI pass.
+   - `references/delivery.md`: render and encode settings, poster frame, platform exports, hand-off package.
+   - `scripts/README.md`, `assets/CREATIVE.template.md`, `assets/BUILDER_BRIEF.template.md`,
+     `assets/CRITIC_BRIEF.template.md`, `assets/project-template/README.md`.
+2. **Every official Remotion skill, all of them.** Before writing or editing any Remotion code, and whenever any Remotion
+   skill is loaded for any reason (loading one alone, such as `remotion-render` to export, counts), read the complete
+   set, not a selection:
+   - Invoke the Skill tool with `remotion-best-practices`. Its "if X, load Y" routing does not apply here: load all of
+     it.
+   - List every Markdown file under its base directory (`find -L <base directory> -name '*.md' | sort`). The router
+     bundles every Remotion skill (create, markup, maps, multimedia, interactivity, studio, render, captions, saas,
+     docs, upgrade). Read each file in full. It is about 85 files; that cost is accepted.
+   - Without the Skill tool, or if the bundle is missing those folders, do the same for every `remotion-*` skill
+     directory installed next to it (usually `~/.claude/skills/`).
+   - Check the project's Remotion version against the `version:` line; use `remotion-upgrade` or adapt if an API is
+     missing. Never recall Remotion APIs from memory.
+3. **Specialist skills.** At each gate, invoke the specialist skill named in the table above (or, without the Skill
+   tool, read its `SKILL.md` in the sibling folder next to this skill), then read every file it lists, in full, as its
+   own Step 0 requires. Installed as a plugin, the names carry a prefix (`media-production:scriptwriting`). Don't
+   re-derive their rules here.
 
 ## Step 1: read the product, then pick the mode
 
@@ -37,7 +67,7 @@ audio or voice docs (for example `AUDIO.md`), illustration docs, the real UI (ru
 pricing and claims in code, and an existing `video/` package. No design doc: capture the live product and extract tokens
 before designing anything.
 
-| Mode | Typical ask | Clock | Read |
+| Mode | Typical ask | Clock | Focus (all references are already read) |
 |---|---|---|---|
 | Launch / promo film | "make a launch video", "sell it from the pain" | VO if narrated, else music | direction, design, motion, qa, delivery |
 | Explainer | "explain how X works", article or doc to video | VO | direction, design, motion |
@@ -47,22 +77,6 @@ before designing anything.
 | Long to short | "cut this podcast into Shorts" | the speech | footage (long to short), scriptwriting hooks |
 | Music montage / sting | "beat-synced reel", "logo animation" | music | motion, direction (music pacing), sound-design |
 | Remake a reference | "make ours like this video" | the reference | direction (reference-first), qa (reference compare) |
-
-References (read only what the mode needs; each has a table of contents):
-
-- `references/direction.md`: brief, pitch round, story doctrine, beat metadata, pacing, music-driven pacing, storyboard
-  formats, per-beat direction, honesty.
-- `references/design.md`: layout for video, type, colour, brand fidelity, real product screens, stills, data in motion,
-  formats.
-- `references/motion.md`: easing, springs, entrances and exits, stagger, kinetic type, seams and transitions,
-  choreography, motion blur, camera, motion tokens by brand energy.
-- `references/footage.md`: ingest, transcription, silence and filler cuts, captions, overlay cards, b-roll, punch-ins,
-  screen demos, zooms and cursors, long to short, safe zones.
-- `references/pipeline.md`: project structure, the timeline as single source of truth, parallel builders, assets and
-  licences, the official Remotion file map.
-- `references/qa.md`: the verification loop, review sheets, automatic scans, critics, the restate test, limits of AI
-  judges, the anti-AI pass.
-- `references/delivery.md`: render and encode settings, poster frame, platform exports, hand-off package.
 
 ## Step 2: run the gated pipeline
 

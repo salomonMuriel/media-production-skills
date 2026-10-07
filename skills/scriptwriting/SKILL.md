@@ -9,7 +9,15 @@ A video is only as good as the story or message it carries. Polish can't rescue 
 true, specific script survives plain visuals. This skill produces the script; `video-director` turns it into a film and
 `voice-direction` performs it.
 
-| Need | Read |
+## Step 0: read every file before the first action
+
+This skill is loaded whole, never in part. Read this `SKILL.md` to the end, then every file in the table below, each to
+its last line: no `offset`/`limit`, no `head`, `grep` or skimming, no "only the sections this task needs". If a read comes
+back truncated, keep reading until the file ends. The task decides what you apply, never what you read; the table says
+where each topic lives, not which files to skip. This holds when the skill is called on its own, from `video-director`, or
+by a sub-agent. If the context is summarised mid-task, read the set again before the next action that depends on it.
+
+| Topic | File |
 |---|---|
 | Which structure, timings, what each ad length can carry | `references/structures.md` |
 | Hooks, retention, open loops, long-to-short clip picking | `references/hooks.md` |
