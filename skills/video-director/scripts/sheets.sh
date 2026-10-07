@@ -83,7 +83,7 @@ step=$(awk -v r="$rate" 'BEGIN { printf "%.6f", 1 / r }')
 grid_select="select=isnan(prev_selected_t)+gt(floor((t+0.0005)/$step)\\,floor((prev_selected_t+0.0005)/$step))"
 filters="$grid_select,$tiling"
 [ "$mode" = "around" ] && filters="trim=end_frame=$count,$tiling"
-"$ffmpeg_binary" -v error -y -ss "$start" -i "$video" -vf "$filters" -an "$work_dir/page-%03d.png"
+"$ffmpeg_binary" -v error -y -ss "$start" -i "$video" -vf "$filters" -fps_mode passthrough -an "$work_dir/page-%03d.png"
 
 pages=$(find "$work_dir" -name 'page-*.png' | sort)
 page_count=$(echo "$pages" | grep -c . || true)
