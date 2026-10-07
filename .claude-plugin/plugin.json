@@ -1,0 +1,14 @@
+{
+  "name": "media-production",
+  "displayName": "Media Production Skills",
+  "version": "1.0.0",
+  "description": "Director-level video (Remotion), scriptwriting, AI voice direction, image generation and sound design skills, with tested tools and measured craft rules.",
+  "author": {
+    "name": "Salomón Muriel",
+    "url": "https://github.com/salomonMuriel"
+  },
+  "repository": "https://github.com/salomonMuriel/media-production-skills",
+  "homepage": "https://github.com/salomonMuriel/media-production-skills",
+  "license": "MIT",
+  "keywords": ["video", "remotion", "motion-graphics", "voiceover", "elevenlabs", "image-generation", "sound-design", "scriptwriting"]
+}

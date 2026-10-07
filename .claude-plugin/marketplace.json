@@ -1,0 +1,17 @@
+{
+  "name": "media-production-skills",
+  "owner": {
+    "name": "Salomón Muriel",
+    "url": "https://github.com/salomonMuriel"
+  },
+  "description": "Media production skills for Claude Code: video, script, voice, image and sound.",
+  "plugins": [
+    {
+      "name": "media-production",
+      "source": "./",
+      "displayName": "Media Production Skills",
+      "description": "video-director, scriptwriting, voice-direction, image-generation and sound-design skills.",
+      "version": "1.0.0"
+    }
+  ]
+}

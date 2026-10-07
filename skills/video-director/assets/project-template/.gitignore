@@ -1,0 +1,6 @@
+node_modules/
+out/
+public/audio/music/
+public/audio/mix-*.wav
+__pycache__/
+.DS_Store
