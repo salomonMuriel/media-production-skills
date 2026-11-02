@@ -12,7 +12,6 @@ Contents
 9. Storyboard formats
 10. Per-beat direction
 11. Honesty
-12. Pre-build self-check
 
 ---
 
@@ -279,14 +278,3 @@ downbeat"); anchors are real track seconds.
   partnership between brands.
 - People in the film: generated or illustrated, names that match faces, never a real person without consent; say so in
   the README.
-
-## 12. Pre-build self-check
-
-- Structure named with a reason; sequence narrative-driven, not source order; hook written as three tracks; message (or
-  stakes, for story formats) by beat 2; the script passed the scriptwriting self-tests and the anti-AI pass.
-- Each beat: one job, a named persuasion move, a specific emotion; VO written in cues; beat shapes vary.
-- The emotional arc moves (valley → pivot → build → resolution).
-- Durations sum to the target; holds allocated; no front-loading planned.
-- Every visual prop traceable to the product; every number traceable to `facts.md`.
-- 2 to 3 transition types and one direction current; at least three framings, never the same framing twice in a row.
-- Tokens quoted from the design source; nothing invented.

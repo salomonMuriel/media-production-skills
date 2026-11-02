@@ -130,18 +130,17 @@ Generated from `src/data/timeline.ts` after the build; times in film seconds.
 ## 7. Sound plan
 
 - **Clock:** <VO, music or speech; what is anchored to what (e.g. brand word on the P2 downbeat)>.
-- **Music:** <mood, tempo, energy event and the visual on it, fade/edit plan>.
+- **Music:** <track URL, author, licence (no NC or ND; CC-BY credit in the caption), mood, tempo, key, the visual on
+  its energy event>. Used as the cinetic score's `bed`.
 - **VO:** <level, pace 140-170 wpm, splits that must land in silence>.
 - **Product sounds:** <diegetic audio, and the pause each one sits in>.
-- **SFX:** <kit (synthesized via sound-design's foley.py or sourced, with licences), key for pitched sounds, a sound for
-  every animated event with gains 0.3-0.6 (hero hits up to 1), texture runs marked; no meme sounds>.
-- **Mix:** bed ducked 8-12 dB under the voice with a slow release, SFX peak-aligned and passing `mix.py`'s audibility
-  check, master -14 LUFS / -1 dBTP measured on the final file.
+- **SFX:** <earshot kit preset (calm, crisp, minimal) and role edits; which visible events sound>.
+- **Mix:** cinetic `score.py`: bed under the voice, payoff the loudest moment, master to the platform target.
 
 ## 8. Production pipeline
 
-G0 brief -> G1 script, storyboard, beat map -> G2 VO locked -> G3 style frames -> G4 build -> G5 sound ->
-G6 draft review (critics, restate test) -> G7 masters -> G8 hand-off. Record what each gate decided in section 10.
+Brief -> script, storyboard, beat map -> voice -> style frames -> build -> sound -> draft render -> one review (three
+critics) -> fixes -> master and hand-off. Record decisions in section 10.
 
 ## 9. Quality bar
 
@@ -153,7 +152,6 @@ G6 draft review (critics, restate test) -> G7 masters -> G8 hand-off. Record wha
 - Every number on screen traceable to `facts.md`; no invented stats, testimonials or UI.
 - The <key moment> is the loudest/biggest moment of the film; it ends on the music's final hit and holds.
 - Frame 0 works as a thumbnail for a stranger at ~300 px with a play button over its centre.
-- Critic scores >= 8 on every axis.
 
 ## 10. Decision log
 

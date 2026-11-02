@@ -43,7 +43,8 @@ Transparent overlays for editors: ProRes 4444 (`--codec=prores --prores-profile=
 - Audio AAC 320k at 48 kHz. `-movflags +faststart` for the web; verify it on Remotion output (`qa_video.py` reports it)
   and remux with `-c copy -movflags +faststart` if missing.
 - Don't mux with `-shortest` blindly: it can trim the last frames when the audio is shorter. Check the frame count.
-- Loudness is measured on the encoded file (sound-design's `audio_qa.py final.mp4`); AAC can raise the true peak.
+- Loudness and sync are measured on the encoded file by the render scripts (cinetic's `check-sync.py`); AAC can raise
+  the true peak.
 - Side-by-side or stacked QA videos for X: set `setsar=1` or the platform distorts them.
 
 ## 3. Poster frame
@@ -85,5 +86,5 @@ Transparent overlays for editors: ProRes 4444 (`--codec=prores --prores-profile=
 - Reveal the folder (`open -R` on macOS) and give the paths.
 - Write a true caption for the post: what the film says and, if asked, how it was made, without exaggeration.
 - Update `CREATIVE.md`: final timing table, decision log (what changed after review and why), open issues.
-- Licences and honesty notes in the README: music track and licence URL, SFX sources, generated people and images, which
-  assets are real product assets.
+- Licences and honesty notes in the README: music track URL, author and licence (CC-BY credit also in the post
+  caption), SFX sources, generated people and images, which assets are real product assets.

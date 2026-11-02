@@ -22,7 +22,7 @@ This folder is its own pnpm package (own `pnpm-workspace.yaml`, own lockfile). I
 the host's TypeScript and lint: add `"video"` to `exclude` in the host `tsconfig.json` and `video/**` to the
 ESLint ignores. Add `/video/node_modules`, `/video/out` to the host `.gitignore` if it does not read this one.
 
-Then, in order (the gates are in the skill's SKILL.md):
+Then, in order (the steps are in the skill's SKILL.md):
 
 1. **Brand.** Replace `src/theme/tokens.ts` and `src/theme/fonts.ts` from the product's design source, and
    `src/components/BrandMark.tsx` with the real logo. Every placeholder value is marked.
@@ -35,9 +35,10 @@ Then, in order (the gates are in the skill's SKILL.md):
 6. **VO.** `pnpm script` writes `out/script.json`; record with `$VOICE/vo_record.py`, build with
    `$VOICE/vo_build.py picks.json --out public/audio/vo/<variant> --ts src/data/vo-<variant>.generated.ts`, then
    register the generated module in `GENERATED` in `src/data/vo.ts`.
-7. **Sound.** `pnpm cues` (gap check included), then `uv run $SD/mix.py out/cues-main.json --out public/audio/mix-main.wav --json`
-   (the report's `sfx_audibility` must pass: every event sound heard over voice and music).
-8. **Review and masters.** `$VD/stills.py`, `$VD/strip.sh`, `$VD/render_masters.sh`, `$VD/qa_video.py`.
+7. **Sound.** The cinetic workflow (SKILL.md, "Sound"). Until `tools/export_cues.ts` is ported to cinetic's cue
+   format, `pnpm cues` then `uv run $SD/mix.py out/cues-main.json --out public/audio/mix-main.wav --json` still mixes
+   voice, music and effects.
+8. **Render, one review, masters.** `$VD/render_masters.sh`, then the three critics once (SKILL.md step 8).
 
 ## How timing flows
 

@@ -1,6 +1,6 @@
 ---
 name: voice-direction
-description: Casting, directing, recording and checking AI voices (ElevenLabs first; OpenAI, Gemini, Cartesia, Hume, Fish as alternatives) for any product: video voiceover, ads, explainers, app audio such as word or flashcard pronunciations, onboarding prompts, podcasts and characters. Matches voice, model, settings, tags and script writing to the feeling wanted (warm, trustworthy, hype, calm, premium, playful and more), keeps a specific language and regional accent, screens voices and takes for static, verifies takes without ears (noise floor, loudness, speech-to-text with repeats), runs blind casting tests, and builds loudness-matched files with word timings. Use it whenever the user wants to generate, choose, direct, fix or evaluate a synthetic voice, mentions ElevenLabs, TTS, voiceover, narration, accents or a voice that sounds breathy, robotic, noisy or foreign, even if they don't say "voice direction". The video-director skill calls it at its voice gate.
+description: Casting, directing, recording and checking AI voices (ElevenLabs first; OpenAI, Gemini, Cartesia, Hume, Fish as alternatives) for any product: video voiceover, ads, explainers, app audio such as word or flashcard pronunciations, onboarding prompts, podcasts and characters. Matches voice, model, settings, tags and script writing to the feeling wanted (warm, trustworthy, hype, calm, premium, playful and more), keeps a specific language and regional accent, screens voices and takes for static, verifies takes without ears (noise floor, loudness, speech-to-text with repeats), runs blind casting tests, and builds loudness-matched files with word timings. Use it whenever the user wants to generate, choose, direct, fix or evaluate a synthetic voice, mentions ElevenLabs, TTS, voiceover, narration, accents or a voice that sounds breathy, robotic, noisy or foreign, even if they don't say "voice direction". The video-director skill calls it for voiceover.
 ---
 
 # Voice direction
@@ -59,6 +59,9 @@ by a sub-agent. If the context is summarised mid-task, read the set again before
    and clipped a word in a shipped master), high-pass and trims, loudness matching to −16 LUFS, word timings as JSON and an
    optional TypeScript module.
 8. In a film, the voice is the clock: never squeeze a line by speeding it more than ~8%; rewrite the line.
+
+With a voice already locked in a project voice file, skip casting (step 2). A take that passes `voice_qa.py` is used as
+it is; pairwise judging (step 6) is for hero lines only, such as a film's opening line or a brand tagline.
 
 ## Scripts
 

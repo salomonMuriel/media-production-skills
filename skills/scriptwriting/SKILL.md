@@ -1,6 +1,6 @@
 ---
 name: scriptwriting
-description: Story and script craft for anything spoken or shown in sequence: video scripts, ads of every length (6, 15, 30, 60, 90 s), launch and brand films, explainers, demos, tutorials, testimonials, founder stories, trailers, short-form hooks for Reels, Shorts and TikTok, podcast and talk openings, voiceover copy and on-screen text. Chooses a structure on purpose (ABT, story spine, story circle, SCQA, StoryBrand, PAS, BAB, keynote reveal, trailer), writes hooks as three tracks, writes for the ear, strips AI-sounding mannerisms, localises properly, and tests the script before anything is produced. Use it whenever the user wants to write, rewrite, tighten or critique a script, hook, voiceover, ad copy for video, storyboard copy or narration, or asks why a script feels generic or AI-written, even if they don't say "script". The video-director skill calls it at its script gate.
+description: Story and script craft for anything spoken or shown in sequence: video scripts, ads of every length (6, 15, 30, 60, 90 s), launch and brand films, explainers, demos, tutorials, testimonials, founder stories, trailers, short-form hooks for Reels, Shorts and TikTok, podcast and talk openings, voiceover copy and on-screen text. Chooses a structure on purpose (ABT, story spine, story circle, SCQA, StoryBrand, PAS, BAB, keynote reveal, trailer), writes hooks as three tracks, writes for the ear, strips AI-sounding mannerisms, localises properly, and tests the script before anything is produced. Use it whenever the user wants to write, rewrite, tighten or critique a script, hook, voiceover, ad copy for video, storyboard copy or narration, or asks why a script feels generic or AI-written, even if they don't say "script". The video-director skill calls it for the script.
 ---
 
 # Scriptwriting
@@ -79,8 +79,8 @@ by a sub-agent. If the context is summarised mid-task, read the set again before
 9. **Table read** at performance pace with a timer, or synthesise once with the real voice and use the real duration.
 10. **Time it**: ~2.5 words/s conversational, ~2.0 warm or for children, ~3.0 energetic; Spanish and other Romance languages
     need fewer words. Outside ±15% of the slot: cut, never rush.
-11. **Self-tests** (below), then revision passes with one concern each: structure → message → emotion → clarity → rhythm →
-    AI tells → length → facts → localisation.
+11. **Self-tests** (below), then one revision pass that walks this order: structure → message → emotion → clarity →
+    rhythm → AI tells → length → facts → localisation.
 12. **Present**: the message line, the structure and why, two hook options, the A/V script, runtime, open `[NEED]`s. No
     preamble, no self-praise.
 13. In production, rewrite on-screen copy after picture lock, against the final shots.
@@ -103,3 +103,8 @@ by a sub-agent. If the context is summarised mid-task, read the set again before
 - **Fact audit**: every number, name and claim traces to `facts.md`; illustrative content labelled.
 - **Sensitive-audience check** (parents, health, money, grief): no staged worst case, no urgency or shame, a doable step,
   comfort before product.
+
+**Short-form path** (social cuts of 45 s or less, for a product whose research, facts file and message house exist):
+skip steps 2 to 4 and reuse them; write the one-line message, the hook and the A/V script, then run only the hook audit,
+read-aloud timing, the swap test, the AI-tells scan, the fact audit and the sensitive-audience check. One revision pass.
+Write a batch of cuts in one sitting so the hooks differ from each other.

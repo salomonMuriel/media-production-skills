@@ -1,9 +1,11 @@
 ---
 name: sound-design
-description: Music, sound effects, mixing and loudness for video, podcasts, apps and games. Chooses and analyses music (tempo, bars, key, energy, finding the drop), edits it on bars with blind listening tests, syncs picture to beats, places SFX by their measured transient, synthesises a deterministic foley and UI sound kit tuned to the song's key, ducks music under voice, mixes offline from a cue list into stems and a master, and masters to platform loudness (-14 LUFS / -1 dBTP for social, -16 for podcasts) measured on the final file. Use it whenever the user wants to pick, cut, sync or score music, add or design sound effects or UI sounds, mix voice and music, fix levels or loudness, or check how a file measures, even if they don't say "sound design". The video-director skill calls it at its sound gate.
+description: Music, sound effects, mixing and loudness for podcasts, apps and games (app UI sounds, podcast mixes, audio files). Chooses and analyses music (tempo, bars, key, energy, finding the drop), edits it on bars with blind listening tests, syncs picture to beats, places SFX by their measured transient, synthesises a deterministic foley and UI sound kit tuned to the song's key, ducks music under voice, mixes offline from a cue list into stems and a master, and masters to platform loudness (-14 LUFS / -1 dBTP for social, -16 for podcasts) measured on the final file. Use it whenever the user wants to pick, cut, sync or score music, add or design sound effects or UI sounds, mix voice and music, fix levels or loudness, or check how a file measures, even if they don't say "sound design". Not for sound in videos: video-director uses the cinetic skill's score workflow for that.
 ---
 
 # Sound design
+
+For sound and music in a video, use the `cinetic` skill's sound workflow (`references/sound.md`) instead of this skill.
 
 Sound is half of perceived quality. You can't hear, so every decision rests on measurements (LUFS, true peak, envelopes,
 onsets) plus an audio-capable judge model or the user's ears for the important calls.
@@ -52,7 +54,6 @@ by a sub-agent. If the context is summarised mid-task, read the set again before
    marked `"role": "texture"`) and run `mix.py`; fix every SFX audibility failure and warning; check sync points with
    `audio_qa.py --envelope`.
 6. Master check on the final file: `audio_qa.py final.mp4`.
-
 ## Scripts
 
 **Paths:** scripts live in this skill's `scripts/` folder, under the base directory shown when the skill loads (`~/.claude/skills/sound-design/` for a standard install; a plugin install puts it elsewhere). The other skills of this suite sit next to it as sibling folders. Paths written as `~/.claude/skills/...` below assume the standard install.

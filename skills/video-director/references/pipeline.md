@@ -43,7 +43,8 @@ video/
   src/components/             Captions, KineticWords, KenBurns, BrandMark, DraftAudio, …
   src/scenes/                 one file per scene; a folder for complex scenes; Poster.tsx
   public/                     audio/{music, vo/<variant>, mix-<variant>.wav}, sfx/, img/{raw, cut, check}, fonts/
-  tools/                      export_cues.ts (cues.json for sound-design's mix.py), export_script.ts (script.json for voice-direction's vo_record.py)
+  tools/                      export_cues.ts (cues.json for cinetic's score.py), export_script.ts (script.json for voice-direction's vo_record.py)
+  audio/                      score.json and kit.json for cinetic's score.py; kit/ holds the rendered earshot takes
   out/                        renders, review sheets, stems, cues.json (gitignored)
 ```
 
@@ -124,7 +125,8 @@ copy one into `tools/` only when the film needs a modified version.
   drift), keep clips short (≤ 8 s), prompt per scene with a negative prompt, never trust their text.
 - **Logos**: svgl.app API, simple-icons as fallback; trademark use only to refer, never to imply partnership.
 - **Icons**: one real icon set (Phosphor, Lucide). No emoji, no empty placeholder squares.
-- **Music and SFX**: the sound-design skill.
+- **Music and SFX**: music from the online libraries and licence rule in `SKILL.md` ("Sound"); SFX from an earshot kit
+  through cinetic's score workflow.
 - **Fonts**: the product's own, shipped as files or Google Fonts.
 - **Licence ledger** in the README: each music track and SFX source with its licence and URL, which people are generated,
   which assets are real product assets. Licensed music stays out of git.
@@ -137,8 +139,7 @@ reconcile it with what is on disk before continuing. Long-running jobs print pro
 
 ## 8. Official Remotion file map
 
-Skills live in `~/.claude/skills/`. Every file below (and every other Markdown file in the Remotion skills) is read in
-full at Step 0 of `SKILL.md`, whatever the task. This table is a map for finding a topic again, not a reading list.
+Skills live in `~/.claude/skills/`. Read the file for the API you are about to use, when you use it.
 
 | Topic | File |
 |---|---|

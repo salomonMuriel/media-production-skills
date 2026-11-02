@@ -6,11 +6,10 @@ Fill every <...> before sending. One builder owns one contiguous range of scenes
 
 - Workdir (absolute): <ABSOLUTE_PATH>/video. Run every command from here.
 - Read first: `CREATIVE.md` (sections 1, 2, 5 for your beats, 6), `README.md`, `src/data/timeline.ts`,
-  `src/lib/{motion,seam,format}.ts`, `src/theme/tokens.ts`, and every official Remotion skill file in full, not a
-  selection: load `remotion-best-practices`, list every `.md` under its base directory and read each one to its last
-  line (video-director `SKILL.md`, Step 0).
+  `src/lib/{motion,seam,format}.ts`, `src/theme/tokens.ts`, and the official Remotion skill files for the APIs your
+  scenes use (load `remotion-best-practices` and follow its routing).
 - Your scenes: <scene ids>, film time <start>-<end> s (frames <a>-<b> at <fps> fps).
-- Style frames approved at G3: <paths>. Build dresses this layout; it never redraws it.
+- Style frames: <paths>. Build dresses this layout; it never redraws it.
 
 ## File rules
 
@@ -43,9 +42,10 @@ Fill every <...> before sending. One builder owns one contiguous range of scenes
   bottom 18%; headline >= 84 px and supporting text >= 44 px at 1080 width; nothing overlaps the captions band
   when captions are visible.
 - If you match a reference: position and size error <= 1-2% of frame, cut frames 0 off.
-- Sound: every animated event you build (entrance, landing, press, cascade step, draw, counter, seam) has an SFX cue
-  row in your report, timed by name like the animation: `{kind|file, at: <timeline expression>, gain, note?, role?}`.
-  Gains 0.3 to 0.6, hero hits up to 1; tick runs and typing `role: "texture"`. An event you leave silent gets a reason.
+- Sound: every discrete state change you build that should sound (a landing, a press, a lock-in, a text fragment
+  resolving, a camera-scale move) has a cue row in your report, timed by name like the animation, using cinetic's cue
+  kinds (`text`, `pop`, `land`, `snap`, `hit`, `whoosh`, `tick`, `click`, `key`, `bell`). Continuous motion stays
+  silent.
 - `npx tsc --noEmit` passes. No console errors in a still render.
 
 ## Honesty rules
@@ -74,5 +74,5 @@ Fill every <...> before sending. One builder owns one contiguous range of scenes
 | Scene | Frames | Status (DONE / ROUGH / BLOCKED) | Verified with (paths of stills/strips viewed) | Residual issues | Requests to orchestrator |
 |---|---|---|---|---|---|
 
-Plus: SFX cue rows for every animated event (the orchestrator merges them into `src/data/sfx.ts`), measurements you
+Plus: cue rows for every sounded event (the orchestrator merges them into the cue export), measurements you
 used, any deviation from the storyboard and why, and exact files written.

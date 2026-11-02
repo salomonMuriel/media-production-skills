@@ -1,64 +1,51 @@
 ---
 name: video-director
-description: Director-level video production for any product, built in Remotion. Plans and makes launch and promo films, explainers, product demos, motion graphics over talking-head footage, captions and b-roll, long-to-short social cuts (Reels, Shorts, TikTok, LinkedIn), logo stings and music-driven montages, owning the whole pipeline from brief and storyboard through motion design, footage editing, QA, render and delivery, and orchestrating the scriptwriting, voice-direction, image-generation and sound-design skills at its gates. Loads the official Remotion skills for the API, so calling this skill brings everything in. Use it whenever the user wants to make, edit, recut, caption or improve a video or animation, mentions Remotion, motion graphics, a promo, launch film, explainer, demo video or captions, or says a video looks generic, amateur or "AI-made", even if they never say "director".
+description: Director-level video production for any product, built in Remotion. Plans and makes launch and promo films, explainers, product demos, motion graphics over talking-head footage, captions and b-roll, long-to-short social cuts (Reels, Shorts, TikTok, LinkedIn), logo stings and music-driven montages, owning the whole pipeline from brief and storyboard through motion design, footage editing, QA, render and delivery, and orchestrating the scriptwriting, voice-direction and image-generation skills, with sound from the cinetic skill's score workflow. Reads the official Remotion skills on demand for the API. Use it whenever the user wants to make, edit, recut, caption or improve a video or animation, mentions Remotion, motion graphics, a promo, launch film, explainer, demo video or captions, or says a video looks generic, amateur or "AI-made", even if they never say "director".
 ---
 
 # Video Director
 
 You are the director, art director and editor. Remotion is the camera. This skill owns the film: what it says, how it
-looks and moves, how footage is cut, how it is checked and delivered. Four specialist skills own their crafts and are
-called at the gates below; the official Remotion skills own the API.
+looks and moves, how footage is cut, how it is reviewed and delivered. Specialist skills own their crafts and are
+called at the steps below; the official Remotion skills own the API.
 
 | Skill | Owns | Called at |
 |---|---|---|
-| `scriptwriting` | structure, hooks, writing for the ear, AI-sounding tells, script self-tests | G1 |
-| `voice-direction` | casting, direction, accents, static screening, recording, take QA, VO build | G2 |
-| `image-generation` | illustrations, characters, plates, keyframes, cutouts, image review | G3 and G4 (assets) |
-| `sound-design` | music choice and analysis, splices, SFX and foley, offline mix, loudness | G1 (music), G5 |
-| `remotion-best-practices` (official) | Remotion API, Studio, rendering | before any code |
+| `scriptwriting` | structure, hooks, writing for the ear, AI-sounding tells | Script |
+| `voice-direction` | casting, direction, accents, recording, take checks, VO build | Voice |
+| `image-generation` | illustrations, characters, plates, keyframes, cutouts | Style frames, Build |
+| `cinetic` (sound only) | the score: earshot SFX kit, cues, music bed, mix and master (its `references/sound.md`) | Sound |
+| `remotion-best-practices` (official) | Remotion API, Studio, rendering | when code needs an API |
 
 When this skill and an official Remotion skill disagree on an API fact, the official skill wins; on taste or process,
 this skill wins (see "Where we deviate"). Product docs (brand, voice, copy rules) override every skill's defaults.
 
-## Step 0: read everything before the first action
+## Step 0: read what the step needs, when it needs it
 
-Skills here are loaded whole, never in part. "Read" means every file, each to its last line: no `offset`/`limit`, no
-`head`, `grep` or skimming, no "only the sections this task needs". If a read comes back truncated, keep reading until
-the file ends. The task decides what you apply, never what you read. Sub-agents that load a skill follow the same rule.
-If the context is summarised mid-project, read the set again before the next action that depends on it.
+Read this `SKILL.md` in full first. Read a reference in full when you reach the step it serves; don't skim a file you
+rely on, and don't load files the task never touches.
 
-1. **This skill.** Read this `SKILL.md` to the end, then every Markdown file in this skill's folder:
-   - `references/direction.md`: brief, pitch round, story doctrine, beat metadata, pacing, music-driven pacing,
-     storyboard formats, per-beat direction, honesty.
-   - `references/design.md`: layout for video, type, colour, brand fidelity, real product screens, stills, data in
-     motion, formats.
-   - `references/motion.md`: easing, springs, entrances and exits, stagger, kinetic type, seams and transitions,
-     choreography, motion blur, camera, motion tokens by brand energy.
-   - `references/footage.md`: ingest, transcription, silence and filler cuts, captions, overlay cards, b-roll,
-     punch-ins, screen demos, zooms and cursors, long to short, safe zones.
-   - `references/pipeline.md`: project structure, the timeline as single source of truth, parallel builders, assets
-     and licences, the official Remotion file map.
-   - `references/qa.md`: the verification loop, review sheets, automatic scans, critics, the restate test, limits of
-     AI judges, the anti-AI pass.
-   - `references/delivery.md`: render and encode settings, poster frame, platform exports, hand-off package.
-   - `scripts/README.md`, `assets/CREATIVE.template.md`, `assets/BUILDER_BRIEF.template.md`,
-     `assets/CRITIC_BRIEF.template.md`, `assets/project-template/README.md`.
-2. **Every official Remotion skill, all of them.** Before writing or editing any Remotion code, and whenever any Remotion
-   skill is loaded for any reason (loading one alone, such as `remotion-render` to export, counts), read the complete
-   set, not a selection:
-   - Invoke the Skill tool with `remotion-best-practices`. Its "if X, load Y" routing does not apply here: load all of
-     it.
-   - List every Markdown file under its base directory (`find -L <base directory> -name '*.md' | sort`). The router
-     bundles every Remotion skill (create, markup, maps, multimedia, interactivity, studio, render, captions, saas,
-     docs, upgrade). Read each file in full. It is about 85 files; that cost is accepted.
-   - Without the Skill tool, or if the bundle is missing those folders, do the same for every `remotion-*` skill
-     directory installed next to it (usually `~/.claude/skills/`).
-   - Check the project's Remotion version against the `version:` line; use `remotion-upgrade` or adapt if an API is
-     missing. Never recall Remotion APIs from memory.
-3. **Specialist skills.** At each gate, invoke the specialist skill named in the table above (or, without the Skill
-   tool, read its `SKILL.md` in the sibling folder next to this skill), then read every file it lists, in full, as its
-   own Step 0 requires. Installed as a plugin, the names carry a prefix (`media-production:scriptwriting`). Don't
-   re-derive their rules here.
+1. **This skill's references**, by step:
+   - Brief and script: `references/direction.md` (brief, pitch round, story, pacing, storyboard, honesty).
+   - Style frames: `references/design.md` (layout, type, colour, brand, real product screens, formats).
+   - Build: `references/motion.md` (easing, springs, kinetic type, seams, camera) and `references/pipeline.md`
+     (project structure, timeline, builders, assets, Remotion file map); `references/footage.md` when there is footage
+     or captions; `assets/project-template/README.md` for a new project.
+   - Review: `references/qa.md` (review sheets, the single review, the restate test, the anti-AI pass) and
+     `assets/CRITIC_BRIEF.template.md`.
+   - Deliver: `references/delivery.md` (encode settings, poster, platform exports, hand-off).
+   - Scripts: `scripts/README.md` when you run one.
+
+   The social track reads only the project's `CREATIVE.md` and `README.md`, the safe-zone and caption sections of
+   `footage.md`, and `qa.md` §3 and §7. The project's code already carries the rest.
+2. **Official Remotion skills, on demand.** Invoke `remotion-best-practices` and follow its "if X, load Y" routing: read
+   the files for the APIs the code you are about to write uses (the map in `pipeline.md` §8 finds them). Check the
+   project's Remotion version against the `version:` line; use `remotion-upgrade` or adapt if an API is missing. Never
+   recall Remotion APIs from memory.
+3. **Specialist skills.** At their step, invoke the skill named in the table above (or read its `SKILL.md` in the
+   sibling folder). Installed as a plugin, the names carry a prefix (`media-production:scriptwriting`). For sound, read
+   the installed `cinetic` skill's `references/sound.md` and use only its sound workflow. Don't re-derive their rules
+   here.
 
 ## Step 1: read the product, then pick the mode
 
@@ -67,7 +54,7 @@ audio or voice docs (for example `AUDIO.md`), illustration docs, the real UI (ru
 pricing and claims in code, and an existing `video/` package. No design doc: capture the live product and extract tokens
 before designing anything.
 
-| Mode | Typical ask | Clock | Focus (all references are already read) |
+| Mode | Typical ask | Clock | References to read |
 |---|---|---|---|
 | Launch / promo film | "make a launch video", "sell it from the pain" | VO if narrated, else music | direction, design, motion, qa, delivery |
 | Explainer | "explain how X works", article or doc to video | VO | direction, design, motion |
@@ -75,30 +62,65 @@ before designing anything.
 | Talking-head overlay / recut | "add graphics to this interview", b-roll, cards | the speech | footage, design |
 | Captions only | "caption this clip", word pop, karaoke | the speech | footage (captions) |
 | Long to short | "cut this podcast into Shorts" | the speech | footage (long to short), scriptwriting hooks |
-| Music montage / sting | "beat-synced reel", "logo animation" | music | motion, direction (music pacing), sound-design |
+| Music montage / sting | "beat-synced reel", "logo animation" | music | motion, direction (music pacing), cinetic sound |
 | Remake a reference | "make ours like this video" | the reference | direction (reference-first), qa (reference compare) |
+| Social cut | "3 Reels this week", a hook test, a card demo, a recut of the film | VO or music already in the project | social track below |
 
-## Step 2: run the gated pipeline
+## Two tracks
 
-Each gate is a stop. The user approves G0, G1 and G3; measurements and critics pass the rest. Iterating on paper costs
-seconds; iterating on renders costs minutes, so never skip the plan for a multi-scene film.
+**Film track**: a new film, a new look, or a project without a locked style.
 
-| Gate | Phase | Passes when |
-|---|---|---|
-| G0 | Brief | One-sentence message written as a claim; audience; destination (muted feed or sound-on) and formats; length; reference style named ("Linear launch", not "premium modern"); facts file. Vague asks get the five-concept pitch round first |
-| G1 | Script, storyboard, beat map | `scriptwriting`: structure chosen with a reason, hook as three tracks, self-tests and AI-tells scan passed. `sound-design`: music chosen and analysed when music leads. Every animated event in the storyboard has an SFX cue (or a logged reason for silence). Durations add up; proposal shown as "This video tells [audience] that [message]" plus a frame table |
-| G2 | VO locked | `voice-direction`: voice cast and screened for static, takes gated and judged, splits in silence, loudness-matched lines with word timings; captions follow what the audio says; timeline gap check passes |
-| G3 | Style frames | Four stills (or one per beat) with real copy, fonts and colours, reviewed against the brand; generated assets locked through `image-generation` (style suffix, cast sheet). The build dresses this layout; it never redraws it |
-| G4 | Build | Scenes built from the shared core; each builder verifies its own range with stills and strips and returns an SFX cue row for every animated event it built, merged into `sfx.ts`; types pass |
-| G5 | Sound | `sound-design`: cues exported from the same timeline, offline mix at −14 LUFS / −1 dBTP, `mix.py` SFX audibility passes (event cues heard over voice and music), envelopes checked at sync points |
-| G6 | Draft review | Low-res render, automatic scan, contact and phone sheets, critic sub-agents (read-only, default reject) including the anti-AI axis, then the muted restate test |
-| G7 | Master | Spec and loudness checked on the encoded file; poster frame checked; platform exports made |
-| G8 | Hand-off | Paths, a true caption, honesty and licence notes, decision log and storyboard updated to match what was built |
+**Social track**: short cuts (6 to 45 s) built in an existing project whose brand, motion library, voices, music and
+illustrations are already locked, usually a batch of 3 to 5. Reuse the locked assets; write each cut with the
+`scriptwriting` short-form path; record new VO lines with the locked voice (no casting); build each cut as a new
+composition from the project's components; score it; render; then one review for the whole batch.
 
-Autonomous runs ("I'll be asleep, just do it") still walk every gate. Replace questions with visible decisions and a
-one-line reason each, record them in the decision log, and deliver a contact sheet with the film. Keep scope exact: never
-add scenes, narration, music or captions nobody asked for; offer them instead. SFX on animated events are part of the
-craft, not an addition: they are always on unless the brief asks for silence.
+## Step 2: make the film
+
+The steps run straight through. There are no gates between them: stop for approval only when the user asks for it in
+an interactive session. Autonomous runs make visible decisions with a one-line reason each in the decision log.
+
+1. **Brief.** One-sentence message written as a claim; audience; destination (muted feed or sound-on) and formats;
+   length; reference style named ("Linear launch", not "premium modern"); facts file. Vague asks get the five-concept
+   pitch round first (`direction.md`).
+2. **Script, storyboard, beat map.** `scriptwriting` writes it; durations add up; every animated event that should
+   sound is marked.
+3. **Voice.** `voice-direction`: cast, record, build loudness-matched lines with word timings; captions follow what the
+   audio says.
+4. **Style frames.** Stills with real copy, fonts and colours; generated assets through `image-generation`. The build
+   dresses this layout; it never redraws it.
+5. **Build.** Scenes from the shared core (`pipeline.md`); types pass.
+6. **Sound.** The cinetic score workflow plus a music bed found online (see "Sound" below).
+7. **Render.** Draft at low resolution; the render and deliver scripts measure spec, loudness and sync as part of the
+   render, not as a review step.
+8. **Review, once.** Three critics, fixes in, done (`qa.md` §3).
+9. **Deliver.** Master, platform exports, poster, hand-off.
+
+Keep scope exact: never add scenes, narration, music or captions nobody asked for; offer them instead. SFX on visible
+events are part of the craft, not an addition: they are on unless the brief asks for silence.
+
+## Sound
+
+For video, sound always comes from the cinetic skill's workflow (`references/sound.md`; scripts `scripts/audio/kit.py`,
+`score.py`, `listen.py`): an earshot SFX kit placed on cues exported from the picture code, music as the score's `bed`
+track, mixed and mastered by `score.py`. The project's timeline exports the cues; earshot lives in its own virtualenv
+(`EARSHOT_PYTHON`). Don't call `sound-design` for video.
+
+**With a voiceover.** `score.py` has no voice track. Render its soundtrack (music and effects) as a stem, then lay the
+VO over it with a sidechain duck (ffmpeg `sidechaincompress`, music about 8 to 10 dB under speech) and master to
+-14 LUFS, -1 dBTP before the mux.
+
+**Music sourcing.** Search online libraries in this order: Pixabay Music, Freesound (filter licence CC0), Mixkit,
+Uppbeat. Pick by mood, tempo and a clear ending; set the score's `key`, `bpm` and `chords` to the track so the effects
+are tuned to it, and retime the picture to its bars.
+
+**Music licence rule.**
+- Prefer commercial use without attribution (Pixabay Content License, CC0, Mixkit free licence).
+- CC-BY only with the credit in the post caption.
+- Never NC (non-commercial) or ND (no derivatives).
+- Never in-app platform music (Instagram, TikTok libraries): business accounts can't use most of it and the publishing
+  API can't add it.
+- Record the track URL, author and licence in the project README; keep the file out of git.
 
 ## The craft law
 
@@ -126,31 +148,30 @@ craft, not an addition: they are always on unless the brief asks for silence.
 10. **One timeline drives everything.** Picture, captions, SFX cues and the offline mix read the same seconds-based data.
     With a voice, the voice is the clock; otherwise the music is.
 11. **Music has a drop; put the key visual on it.** Found by measuring energy, never by trusting an auto beat grid.
-12. **Sound is half the film.** Every animated event gets a sound on its transient, and the mix proves it is heard
-    (`mix.py` audibility check); ducked bed; loudness measured on the final file (`sound-design`). A cue sheet full of
-    sounds 25 dB under the voice is a silent film.
-13. **The judge is never the builder.** Critics are separate read-only sub-agents that reject by default; a fresh agent
-    must restate the message from muted frames alone.
+12. **Sound is half the film.** Every visible state change that should sound gets one, placed by the cinetic score on
+    the frame the picture computes; the bed ducks under voice; the score masters to the platform target.
+13. **The judge is never the builder.** Critics are separate read-only sub-agents, and they look once.
 14. **Trust measurements over opinions.** You can see PNGs but cannot hear, and AI video judges sample about 1 fps and
-    invent details. Verify motion with frame strips, audio with envelopes and LUFS, music edits with blind tests.
+    invent details. A critic confirms a motion claim on a frame strip before it reports it.
 15. **Frame 0 is the thumbnail.** Chat apps and X use it as the poster: design it for a stranger, keep the centre clear.
 16. **Every format is re-laid out, never cropped.** One timeline, a layout function per format.
 17. **Tell the truth about the making.** Captions and posts never claim "made in 10 minutes" or "one shot" unless true.
 18. **No AI mannerisms.** No explanatory text the picture already says, no labels narrating visuals, no summary cards, no
     contrast reveals ("it's not X, it's Y"), negation lists, "Imagine…", AI vocabulary or em dashes, no lazy visual
-    defaults. Run the anti-AI pass (`qa.md` §7) on the script at G1 and on the draft at G6, as its own critic axis.
+    defaults. The anti-AI pass (`qa.md` §7) runs on the script while writing it and inside the Taste critic. It is never
+    skipped.
 
 ## Where we deviate from the official Remotion defaults
 
 - **Rendering.** The official router says not to render unless asked. Here the deliverable is a checked file, so
-  rendering stills, strips and drafts for QA is always fine; the full master is rendered at G7.
+  rendering stills, strips and drafts is always fine; the full master is rendered after the review.
 - **Timing source.** Official markup puts timing inline on JSX nodes for Studio editing. For films locked to a voice or
   music, the timeline data file is the master (it also feeds captions, cues and the mixer); scenes still use
   `<Sequence premountFor={fps}>`. For template-style social cuts users tweak in Studio, follow the official style.
 - **Transitions.** `TransitionSeries` presentations overlap both scenes and shorten the film. Velocity-matched seams are
   hard cuts with the motion inside each scene; use presentations only when a dissolve or push is intended.
-- **Audio.** Remotion does no loudness normalisation or multiband ducking. Final masters are premixed offline by
-  `sound-design`'s `mix.py` and played as one `<Audio>`; in-component volume curves are for drafts.
+- **Audio.** Remotion does no loudness normalisation or ducking. The soundtrack is premixed offline by cinetic's
+  `score.py` and muxed after the render; in-component volume curves are for drafts.
 - **SFX library.** The official `remotion.media` sound list is mostly meme sounds. Never use those in brand films.
 - **Studio.** One Studio per project, owned by the orchestrating agent. Sub-agents verify with stills and strips.
 
@@ -169,9 +190,9 @@ own skills.
 | Review sheets from a rendered MP4 (contact, phone, around t, beats) | `sheets.sh` |
 | Automatic scan: pops, flashes, freezes, black frames, spec | `qa_video.py` |
 | Chat-thumbnail simulation; burn a poster into frame 0 | `poster_check.py` |
-| Render every composition and variant with master flags, then QA (uses sound-design's `audio_qa.py`) | `render_masters.sh` |
+| Render every composition and variant with master flags and measure spec and loudness | `render_masters.sh` |
 | Platform exports (YouTube, X, LinkedIn, web, GIF) | `export_platforms.sh` |
-| Audio/video model judgements: VO takes, pairwise, blind splice, music fit, muted restate | `media_judge.py` |
+| Audio/video model judgements: VO takes, music fit, muted restate | `media_judge.py` |
 
 Templates in `assets/`: `project-template/` (a runnable Remotion project with the timeline, cue, caption, motion and format
 system), `CREATIVE.template.md` (brief to decision log), `BUILDER_BRIEF.template.md` and `CRITIC_BRIEF.template.md`.
@@ -186,10 +207,7 @@ shipping the Repitis launch film (a 73 s narrated promo for a children's reading
   it on one sheet, then fan out. Up to about six short scenes, building inline is faster; beyond that, give each builder two
   or three scenes. Each builder owns its scene files only and gets `BUILDER_BRIEF.template.md` filled in.
 - Voice, images and sound can each be their own agent from the start, running their skill in parallel with picture.
-- Critics get `CRITIC_BRIEF.template.md`: split by axis, list every issue as BLOCKER or POLISH, fix everything in one
-  pass (only shots scored 7 or below; never shots at 9 or above). At most three rounds: a full review, then
-  verification of the fixes, then a last pass only for remaining blockers. Leftovers and items that fail twice go to
-  the user.
+- Critics get `CRITIC_BRIEF.template.md`, one per lens. They run once, in parallel; the fixes go in and the film is done.
 - One heavy render at a time on the machine; parallel renders just thrash.
 
 ## Hand-off

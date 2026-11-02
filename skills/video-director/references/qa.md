@@ -1,12 +1,12 @@
-# QA: the verification loop
+# QA: review tools and the single review
 
-The full render is the last step of a loop, never the first: stills → strips → draft → critics → master. A model's
-"looks great" is never a pass; a frame strip or a measured envelope is.
+Builders look at their own work with stills and strips while they build. The film then gets exactly one review, after
+the draft render: three critics, fixes in, done.
 
 Contents
 1. Review tools, cheapest first
 2. What to look for
-3. Critics: the judge is never the builder
+3. The single review
 4. The restate test
 5. Limits of AI judges
 6. Reference compare (remakes)
@@ -27,10 +27,10 @@ Contents
 | Beat sheet | one frame per beat to judge rhythm | `scripts/sheets.sh beats out/draft.mp4 out/review/beats.png 120 0.48` |
 | Draft render | rhythm, not sharpness | `npx remotion render Wide out/draft.mp4 --scale=0.5 --crf=28` |
 | Automatic scan | pops, one-frame flashes, freezes, black frames, spec | `scripts/qa_video.py out/draft.mp4 --ignore 0 --cuts 12.4,30.1 --beats 120:0.48` |
-| Audio checks | LUFS, true peak, envelope, speech spans, split silence | `$SD/audio_qa.py out/mix.wav --envelope 10 14 0.1` |
+| Audio report | loudness, true peak, payoff, stacks, masking | cinetic `score.py --json out/qa/score.json`; `listen.py` for earshot's listening sheet |
 | Poster | chat thumbnail simulation | `scripts/poster_check.py out/final/film.mp4` or `--render PosterWide,PosterTall` |
 
-Pass `--fps` to `stills.py` and `strip.sh` when the composition isn't 30 fps. `$SD` is `~/.claude/skills/sound-design/scripts`. Full flags: `scripts/README.md`.
+Pass `--fps` to `stills.py` and `strip.sh` when the composition isn't 30 fps. Full flags: `scripts/README.md`.
 
 - Read every sheet you render (the Read tool shows PNGs). Inspect fresh output only; scripts clear their temp frames.
   `sheets.sh` tiles carry no burned-in timestamps (it prints a time legend per page instead); `stills.py` labels tiles.
@@ -55,7 +55,8 @@ accelerate; the next shot not already moving in the exit's direction; idle wobbl
 **Pacing**: movement within the first 15 frames; something new every 2 to 4 s; the hook works muted in the first 2 to
 3 s; nothing front-loaded; every element readable for at least 1.5 s.
 
-**Sound**: hits land (envelope), the duck works, splits sit in silence, the tail fades, LUFS and true peak on target.
+**Sound**: every sounded event has a visible cause on its frame, the bed ducks under the voice, the payoff is the
+loudest moment, the tail fades (cinetic `sound.md`).
 
 **Truth**: every number in `facts.md`; illustrations labelled; no invented UI or features; tokens match the design source.
 
@@ -65,45 +66,27 @@ accelerate; the next shot not already moving in the exit's direction; idle wobbl
 - [ ] Every still image has a treatment; fast snaps have motion blur, read text has none
 - [ ] One hero colour per frame; brand font everywhere; px gaps around big type
 - [ ] At least three deliberate holds; no frozen frame mid-film
-- [ ] Every animated event has an SFX cue or a logged silence; `mix.py` SFX audibility passes; music drop on the key visual
+- [ ] Every visible event that should sound has a cue; the music drop sits on the key visual
 - [ ] Text inside safe zones in every format
-- [ ] Frames extracted, inspected, fixed and re-inspected
 
-## 3. Critics: the judge is never the builder
+## 3. The single review
 
-- Critics are separate read-only sub-agents that reject by default ("a harsh motion director, not a proud author").
-  Brief them with `assets/CRITIC_BRIEF.template.md` and give them sheets, strips and the draft, not your reasoning.
-- Split by axis: motion, design and image, sound, story, muted readability, UI fidelity and translations, brand and copy
-  rules. Each defect comes with frame numbers, severity and a measurable fix.
-- Score 1 to 10 per axis: hook in the first 2 s, readability at 360 px, motion quality, variety, composition, brand and
-  data accuracy, sound sync, taste. Tag every issue **BLOCKER** (a viewer would notice: a wrong fact or claim,
-  unreadable text, broken or popping motion, sync off by more than 3 frames, inaudible SFX, a brand violation, a failed
-  restate) or **POLISH** (everything else).
-- **At most three rounds**, each one doing more than the last could:
-  1. **Full review.** Every axis lists every issue it finds, not the worst three. Fix every blocker and every cheap,
-     safe polish item in one pass; re-render only the affected ranges.
-  2. **Verification.** The critics of the axes that failed, or whose shots changed, get the round 1 findings and mark
-     each item FIXED, NOT FIXED or REGRESSED. They may add new blockers (regressions, or defects a viewer would notice),
-     never new polish. Axes that passed with unchanged shots are not re-run.
-  3. **Only if blockers remain**, on those items alone.
-  Then stop. What is left goes to the user at hand-off, one line each with a recommendation. An item that fails twice
-  is a design decision, not a fix: it goes to the user (or, in autonomous runs, the decision log), never to round 4.
-- **Pass**: no open blocker and every axis at 8 or above. An axis held at 7 by a constraint the brief locked (a talking
-  head the speaker's own words must open on) passes with that reason logged; it is not a reason for another round.
-- Fix only shots scored 7 or below; don't touch shots at 9 or above.
-- With parallel builders, write one FIXES file per builder so fixes run in parallel.
-- A new version replaces the previous one only if side-by-side judging finds it better. Keep a version log.
-- The critic gets a clean context and the spec (brief, storyboard, design rules), never the builder's reasoning. Your own
-  first look is never what you hand to the user.
-- Every visual claim carries a timecode and is re-verified by extracting that frame; unverified claims are dropped.
-  Reviewers have reported "captions rendered" when no frame showed any, and missed a misspelled word.
-- Verdicts are APPROVED, NEEDS REVISION or INCOMPLETE; there is no "approved with minor changes". A review that couldn't
-  listen to the audio is INCOMPLETE, not a pass.
-- Self-check before showing the user: a ±1.5 s strip at every cut of the rendered output, the first and last 2 s, and 2 to
-  3 midpoints. Cap self-check at 3 passes, then report what's left. A second polish pass should come back nearly empty.
-- Static checks pixel QC can't do, in seconds: frame coverage (holes and overlaps against the shot table), every literal in
-  the source that reaches the screen reconciled with `facts.md`, a count of whitelisted effects (glitches, sweeps) against
-  their budget, and every visual accent's time looked up from timing data rather than typed by hand.
+One review per film, after the draft render; one per batch on the social track. No self-check pass before it, no
+re-check after the fixes, no second round.
+
+1. **Prepare the evidence once**: the draft, a contact sheet, a phone sheet, strips at the cuts and fast moves, the
+   poster check, `qa_video.py` output and cinetic's score report.
+2. **Three critics, in parallel, once.** Separate read-only sub-agents with a clean context and the spec (brief,
+   storyboard, design and copy rules), never the builder's reasoning, briefed with `assets/CRITIC_BRIEF.template.md`.
+   - **Director**: hook in 2 s muted, story and message, pacing, the weakest 3 s, the ending, the restate test (§4).
+   - **Picture**: motion (confirmed on strips), composition, readability on the phone sheet, brand tokens, facts.
+   - **Taste**: the anti-AI pass (§7) on every on-screen and spoken word and on the picture.
+   Each critic lists its issues with frame numbers and a concrete fix, most important first, and drops any claim it
+   could not confirm on a frame. On the social track the same three critics review the whole batch at once.
+3. **Fix and finish.** Apply the fixes, re-render the changed range into the master, deliver. What you chose not to fix
+   goes into the hand-off as one line each.
+
+Spec, loudness and sync are measured by the render and deliver scripts, not reviewed.
 
 ## 4. The restate test
 
@@ -118,9 +101,8 @@ it hesitates, too much is moving. A cold viewer finds ambiguous metaphors the au
   (claims about easing, emoji and gradients in one review were all wrong). Use them for gist, comprehension, pacing feel
   and transcripts. Verify every specific defect claim in stills or strips before acting on it. A strip caught a real bug
   the judge missed: a dive that first zoomed into the wrong object.
-- Audio judges need a blind setup (never reveal which clip is edited), an untouched control from the same track, and
-  repeated runs. Force a one-line structured answer so verdicts can be parsed and compared.
-- You can't hear: every audio claim needs a measurement or a judge, and important ones need the user's ears.
+- You can't hear: audio claims rest on cinetic's score report and earshot's `listen.py`, and important calls on the
+  user's ears.
 
 ## 6. Reference compare (remakes)
 
@@ -131,9 +113,9 @@ it hesitates, too much is moving. A cold viewer finds ambiguous metaphors the au
 
 ## 7. The anti-AI pass
 
-Generated films share recognisable mannerisms, and viewers have learned them. Run this pass on the script at G1 and on the
-draft at G6, as its own critic axis ("reads as made by a person with taste"). One hit is a fix, not a style choice, unless
-the decision log says otherwise.
+Generated films share recognisable mannerisms, and viewers have learned them. Apply this list while writing the script,
+and the Taste critic runs it on the draft ("reads as made by a person with taste"). One hit is a fix, not a style
+choice, unless the decision log says otherwise.
 
 **Copy (voice, cards, captions, end cards)**
 - The banned and capped patterns in the scriptwriting skill (`references/craft.md`, AI-sounding tells): contrast reveals, negation lists, question-then-answer, colon reveals,
@@ -170,11 +152,10 @@ no recap of what they can see for themselves.
 
 ## 8. Delivery checklist
 
-- [ ] G3 stills approved; storyboard reconciled with the build
-- [ ] Automatic scan: 0 unexplained pops, flashes or freezes
-- [ ] Music drop on the key moment; −14 LUFS and ≤ −1 dBTP on the final MP4
-- [ ] BT.709, yuv420p, faststart (`qa_video.py` spec report)
-- [ ] Poster frame checked as a chat thumbnail
+Spec, loudness and sync come from the render and deliver scripts' own output; this list is what they don't cover.
+
+- [ ] Storyboard reconciled with the build
+- [ ] Poster frame works as a chat thumbnail
 - [ ] "Example data" and "Illustration" labels where needed; every number sourced
-- [ ] True caption written; licences and generated-content notes in the README
+- [ ] True caption written; music URL, author and licence and generated-content notes in the README
 - [ ] File revealed (`open -R`) and its path given

@@ -1,29 +1,30 @@
 # Media production skills for Claude Code
 
-Five agent skills that make Claude a director-level video, voice, image, sound and script producer. They encode a gated
-production process, measured craft rules and tested tools, distilled from shipped work and from the best public video
-skills.
+Five agent skills that make Claude a director-level video, voice, image, sound and script producer. They encode a
+production process with a single review, measured craft rules and tested tools, distilled from shipped work and from
+the best public video skills.
 
 | Skill | What it does |
 |---|---|
-| [`video-director`](skills/video-director/SKILL.md) | Plans and builds videos in [Remotion](https://www.remotion.dev): launch and promo films, explainers, product demos, motion graphics over talking heads, captions and b-roll, long-to-short social cuts, music montages. Owns brief, storyboard, motion, design, footage editing, QA, render and delivery, and calls the four skills below at its gates. |
+| [`video-director`](skills/video-director/SKILL.md) | Plans and builds videos in [Remotion](https://www.remotion.dev): launch and promo films, explainers, product demos, motion graphics over talking heads, captions and b-roll, long-to-short social cuts, music montages. Owns brief, storyboard, motion, design, footage editing, review, render and delivery. Calls scriptwriting, voice-direction and image-generation, and takes video sound from [cinetic](https://github.com/Leonxlnx/cinetic) (see "Video sound"). |
 | [`scriptwriting`](skills/scriptwriting/SKILL.md) | Story and script craft for any format and length: a framework chooser, 20 structures, hooks, writing for the ear, AI-sounding tells, localisation, self-tests. |
 | [`voice-direction`](skills/voice-direction/SKILL.md) | Casting, directing and checking AI voices (ElevenLabs first): a feeling-to-settings matrix, accents, static screening, verification without ears, blind casting, loudness-matched builds with word timings. |
 | [`image-generation`](skills/image-generation/SKILL.md) | AI images with OpenAI GPT Image (plus Gemini, FLUX, Recraft): locked style suffixes, consistent characters, images sized for camera moves, clean cutouts, hostile self-review, cost control, legal notes. |
-| [`sound-design`](skills/sound-design/SKILL.md) | Music choice and analysis (finding the drop), bar-accurate edits with blind tests, transient-aligned SFX, a synthesized foley kit, offline mixing with ducking, loudness mastering. |
+| [`sound-design`](skills/sound-design/SKILL.md) | Sound outside video: app UI sounds, podcasts, audio files. Music analysis, bar-accurate edits, a synthesized foley kit, offline mixing with ducking, loudness mastering. |
 
 Each skill works on its own; `video-director` orchestrates them for films.
 
 ## What makes them different
 
-- **Gated process.** Brief → script → voice → style frames → build → sound → draft review → master → hand-off, with the
-  user approving the plan before anything expensive happens.
+- **Straight-through process.** Brief → script → voice → style frames → build → sound → render → one review → master
+  → hand-off, with no gates between steps. Approval stops happen only when the user asks for them.
 - **Measured rules, not vibes.** Noise-floor gates for synthetic voices (static measured −50 to −60 dB, clean −66 to
   −76), spring damping ratios, seam velocity matching, caption timing, loudness targets, beat-grid fitting, all with numbers.
-- **The judge is never the builder.** Read-only critic sub-agents reject by default; a fresh agent must restate the
-  message from muted frames.
-- **Verification without ears or eyes on motion.** Claude can see PNGs but can't hear and AI video judges sample ~1 fps, so
-  the tools verify with frame strips, automatic pop/flash/freeze scans, envelopes, LUFS and repeated transcription.
+- **One review.** After the draft render, three read-only critics (Director, Picture, Taste) look once; the fixes go in
+  and the film is done. Social cuts get the same review once per batch. Spec, loudness and sync are measured by the
+  render scripts, not reviewed.
+- **Claims confirmed on frames.** Claude can see PNGs but can't hear, and AI video judges sample ~1 fps, so critics
+  confirm motion claims on frame strips and audio rests on measured reports.
 - **An explicit anti-AI pass.** Scripts and drafts are checked for AI mannerisms: explanatory text the picture already
   says, "it's not X, it's Y", negation lists, AI vocabulary, lazy visual defaults.
 - **Honest by default.** No invented numbers, testimonials or UI; generated imagery is never evidence.
@@ -58,6 +59,21 @@ git clone https://github.com/salomonMuriel/media-production-skills
 cp -R media-production-skills/skills/* ~/.claude/skills/
 ```
 
+## Video sound
+
+`video-director` takes all video sound from the [cinetic](https://github.com/Leonxlnx/cinetic) skill's score workflow
+(`references/sound.md`, `scripts/audio/kit.py`, `score.py`, `listen.py`) with SFX from an
+[earshot](https://github.com/Leonxlnx/earshot) kit, and music found online as the score's `bed`.
+
+- cinetic is installed by copying `skills/cinetic` at commit `ecfa6605de1adb9345ce937724810dc32267d068` into
+  `~/.claude/skills/cinetic`. The only local edit is its frontmatter `description`, narrowed so it triggers for sound
+  and music in videos and leaves whole videos to `video-director`:
+  > Sound and music for videos made in code: an earshot SFX kit placed on frame-exact cues, a music bed, the score mix
+  > and master (references/sound.md, scripts/audio/kit.py, score.py, listen.py). Use it whenever a video needs sound
+  > effects, music, a soundtrack mix or a listening check. For making the whole video, use video-director.
+- earshot lives in its own virtualenv, as cinetic's `docs/setup.md` says: clone it to `~/earshot`, create `.venv` with
+  uv, install CPU PyTorch and then earshot editable, and export `EARSHOT_PYTHON="$HOME/earshot/.venv/bin/python"`.
+
 ## Requirements
 
 - [uv](https://docs.astral.sh/uv/) (all Python scripts are self-contained uv scripts; nothing is installed globally)
@@ -77,7 +93,7 @@ Ask for what you want; the skills trigger on their own ("make a 45 s launch vide
 call them by name, e.g. `/video-director`.
 
 A typical film: copy `skills/video-director/assets/project-template/` into your repo as `video/`, fill
-`CREATIVE.md` from the template, and let the skill walk the gates.
+`CREATIVE.md` from the template, and let the skill run it through.
 
 ## Status
 
